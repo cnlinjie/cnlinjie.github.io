@@ -68,4 +68,9 @@ theme: landscape
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  repo: git@github.com:cnlinjie/cnlinjie.github.io.git
+  branch: master
+  type: git
+  repo: git@gitcafe.com:cnlinjie/cnlinjie.git
+  branch: gitcafe-pages
