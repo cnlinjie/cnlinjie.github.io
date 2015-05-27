@@ -13,5 +13,7 @@ install node and npm
 #hexo d
 ```
 and
+```
 #hexo d -g
+```
 
