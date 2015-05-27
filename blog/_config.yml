@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: Linjie
 subtitle:
 description:
-author: John Doe
-language:
+author: Linjie
+language: zh_CN 
 timezone:
 
 # URL
@@ -63,7 +63,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-theme: landscape
+theme: light
 
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
