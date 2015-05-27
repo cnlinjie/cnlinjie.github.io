@@ -1,5 +1,6 @@
 # cnlinjie.github.io
 install node and npm
+```
 #cd /data/blog
 #npm install hexo -g
 #hexo init blog
@@ -10,6 +11,7 @@ install node and npm
 #hexo s
 #hexo g
 #hexo d
+```
 and
 #hexo d -g
 
