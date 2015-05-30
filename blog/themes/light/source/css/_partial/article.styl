@@ -285,3 +285,26 @@ article
       margin-top 15px
       iframe
         margin-top 0
+.prev_next
+  margin-bottom 1em
+  clear both
+  background transparent
+  overflow hidden
+  a
+    display inline-block
+    text-align center
+    padding 0.5em 1em
+    background #fff
+    -webkit-box-shadow 1px 2px 3px #ddd
+    box-shadow 1px 2px 3px #ddd
+    color #1ba1e2
+    &.prev
+      float left
+    &.next
+      float right
+    &.disabled
+      cursor not-allowed
+      color #999
+      &:hover
+        text-decoration none
+
