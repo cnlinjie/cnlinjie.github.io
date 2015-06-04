@@ -5,7 +5,10 @@ menu:
 widgets:
 - search
 - category
-- tag
+- tagcloud
+- recent_posts
+- links
+- duoshuo_recent_comments
 
 excerpt_link: Read More
 
@@ -26,6 +29,10 @@ fancybox: true
 
 google_analytics:
 rss:
+
+links: 
+- name: MZZO
+  link: http://www.mzzo.net
 
 duoshuo: linjie
 
