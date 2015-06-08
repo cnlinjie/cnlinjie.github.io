@@ -14,6 +14,16 @@
       <% if (item.excerpt && index){ %>
         <%- item.excerpt %>
       <% } else { %>
+
+	<!-- Table of Contents -->
+	<% if (!index && !item.notoc){ %>
+  		<div id="toc" class="toc-article">
+  		<h1><%= __('TOC') %></h1>
+  		<%- toc(item.content) %>
+  		</div>
+	<% } %>
+	<!-- /Table of Contents -->
+
         <%- item.content %>
       <% } %>
     </div>

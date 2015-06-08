@@ -4,11 +4,14 @@ menu:
 
 widgets:
 - search
+- toc
 - category
 - tagcloud
 - recent_posts
 - links
-- duoshuo_recent_comments
+
+#- duoshuo_recent_comments
+
 
 excerpt_link: Read More
 
