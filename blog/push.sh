@@ -5,5 +5,7 @@ if [ "if_commit" = "" ]; then
    if_commit="n"
 fi
 
-hexo g -d 
+git add .
+git commit -m 'test'
+git push
 
