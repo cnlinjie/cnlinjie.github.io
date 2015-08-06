@@ -35,7 +35,10 @@ rss:
 
 links: 
 - name: MZZO
-  link: http://www.mzzo.net
+  link: http://www.mzzo.net/
+- name: 一只猿
+  link: http://92ez.com/
+
 
 duoshuo: linjie
 cnzz: true
