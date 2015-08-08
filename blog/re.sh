@@ -18,7 +18,8 @@ hexo g -d
 if [ "$if_commit" = "y" ]; then
 	echo "---------------发布成功，开始提交源文件:---------------------"
 	git add .
-	git commit -m "$git_message"
+	git commit -m $git_message
 	git push
 fi
 
+echo "test"
