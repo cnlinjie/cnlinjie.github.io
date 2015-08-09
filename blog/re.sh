@@ -22,4 +22,3 @@ if [ "$if_commit" = "y" ]; then
 	git push
 fi
 
-echo "test"

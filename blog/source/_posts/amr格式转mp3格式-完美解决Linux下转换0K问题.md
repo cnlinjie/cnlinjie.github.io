@@ -17,6 +17,7 @@ it.sauronsoftware.jave.EncoderException:   Duration: N/A, bitrate: N/A
 但也确实转换成功了，可以播放。
 可是一旦部署到Linux环境当中，不是转换失败，就是转换的文件为大小 0 k。百思不得其解。 
 
+<!-- more -->
 ##**原因**
 经过一些资料和源码跟踪，终于找到了原因。
 jave的能转换的原理其实就是**调用外部的二进制可执行文件** `ffmpeg`，打开它的jar包就可以发现，它里面内置了：
