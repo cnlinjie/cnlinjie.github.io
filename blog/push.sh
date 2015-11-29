@@ -8,7 +8,7 @@ fi
 if [ "$if_commit" = "y" ]; then
 	read -p "输入提交信息:" git_message
 	if [ "$git_message" = "" ]; then
-		git_message = "没有提交信息"
+		git_message="没有提交信息"
 	fi
 	git add .
 	git commit -m "$git_message"
