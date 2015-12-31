@@ -2,6 +2,7 @@
 install node and npm
 ```
 #cd /data/blog
+#install hexo-cli -g
 #npm install hexo -g
 #hexo init blog
 #cd ./blog
