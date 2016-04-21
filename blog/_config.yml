@@ -72,6 +72,7 @@ deploy:
    repo: git@github.com:cnlinjie/cnlinjie.github.io.git
    branch: master
  - type: git
+#   repo: git://git.coding.net/cnlinjie/cnlinjie.git 
    repo: git@git.coding.net:cnlinjie/cnlinjie.git
    branch: gitcafe-pages
 # - type: git
