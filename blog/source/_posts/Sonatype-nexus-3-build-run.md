@@ -165,11 +165,11 @@ pom.xml 文件再加：
 ```
 <distributionManagement>
     <repository>
-        <id>harme-nexus-releases</id>
+        <id>oss</id>
         <url>http://localhost:8081/repository/maven-releases/</url>
     </repository>
     <snapshotRepository>
-        <id>harme-nexus-snapshots</id>
+        <id>oss</id>
         <url>http://localhost:8081/repository/maven-snapshots/</url>
     </snapshotRepository>
 </distributionManagement>
