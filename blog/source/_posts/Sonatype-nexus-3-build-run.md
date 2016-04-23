@@ -1,5 +1,6 @@
 title: 团队建设-Maven 仓库 Sonatype Nexus 的搭建
 date: 2016-04-23 19:13:37
+category: Maven
 tags:
 - maven
 - sonatype
@@ -162,7 +163,7 @@ setting.xml 文件，在servers节点里面：
 
 ```
 pom.xml 文件再加：
-```
+```xml
 <distributionManagement>
     <repository>
         <id>oss</id>

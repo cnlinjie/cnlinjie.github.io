@@ -1,5 +1,6 @@
 title: php 用nginx实现拦截器的思路
 date: 2016-04-22 22:46:22
+category: php
 tags:
 - PHP
 - PHP interceptor
