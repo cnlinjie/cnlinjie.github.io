@@ -28,6 +28,7 @@ cp /usr/lib/x86_64-linux-gnu//libQtXml.so.4 ./
 cp /usr/lib/x86_64-linux-gnu/libQtNetwork.so.4 ./
 cp /usr/lib/x86_64-linux-gnu/libQtCore.so.4 ./
 ```
+<!-- more -->
 我直接google搜索：libQtWebKit.so 
 发现是在：http://rpm.pbone.net/index.php3/stat/3/srodzaj/1/search/libQtWebKit.so.4()(64bit)
 这里有，于是找到对应版本安装下载。
