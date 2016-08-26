@@ -1,9 +1,9 @@
 title: fedora23 编译 WizNote2.3.3
 date: 2016-08-25 22:20:56
-tags:
+tags: wiz
 ---
 
-##前期环境准备
+## 前期环境准备
 
 1. **为了方便操作，请先切换到root环境下!**
 2. 前期的gcc,make 等编译环境应该默认你们有了。
@@ -17,11 +17,10 @@ tags:
 ## 准备依赖环境
     本次依赖环境所需是根据本次经验而成，如果有其他问题可以留言。
     
-    核心就是：缺啥装啥，有yum(dnf)就直接装，没有先找找有没现成的 rpm ,再没有就编译。所以不必惊慌。
+    核心就是：缺什么装什么，有yum(dnf)就直接装，没有先找找有没现成的 rpm ,再没有就编译。所以不必惊慌。
     
-以下是我所遇到的问题，如果同样问题的可以对号入座，如果不一样，可以留言，看到就回
-：
-1.  卡在了这，提示我找不到 这几个库文件。
+以下是我所遇到的问题，如果同样问题的可以对号入座，如果不一样，可以留言，看到就回：
+1.  **卡在了这，提示我找不到 这几个库文件。**
 ```
 cp /usr/lib/x86_64-linux-gnu/libQtWebKit.so.4 ./
 cp /usr/lib/x86_64-linux-gnu/libQtGui.so.4 ./
@@ -29,7 +28,6 @@ cp /usr/lib/x86_64-linux-gnu//libQtXml.so.4 ./
 cp /usr/lib/x86_64-linux-gnu/libQtNetwork.so.4 ./
 cp /usr/lib/x86_64-linux-gnu/libQtCore.so.4 ./
 ```
-<!-- more -->
 我直接google搜索：libQtWebKit.so 
 发现是在：http://rpm.pbone.net/index.php3/stat/3/srodzaj/1/search/libQtWebKit.so.4()(64bit)
 这里有，于是找到对应版本安装下载。
@@ -47,8 +45,7 @@ cp /usr/lib/libQtNetwork.so.4 ./
 cp /usr/lib/libQtCore.so.4 ./
 ```
 OK，继续执行，这个问题就过了。
-
-2. 这次遇到的是QT问题，提示没有找到QT的什么什么，还需要设置QT_DIR的环境变量（当时没有记录下来）。
+2. **这次遇到的是QT问题，提示没有找到QT的什么什么，还需要设置QT_DIR的环境变量（当时没有记录下来）。**
 
 好，缺少QT环境，那就安装，怎么装，我先去wiz.cn看了看，有篇 http://www.wiz.cn/wiznote-qt/compile-wiznote-on-centos
 在`下载安装QT 4.8.6 `之前可以照做这个：
@@ -88,4 +85,11 @@ cd 进目录之后，如下
 重新进入到WizNote的源码里面，继续执行`./linux-package.sh ` ,等待[100]的编译过后（我又没有截图，太心急了）。
 然后后退一个目录，就可以看到这两个东西：
 `WizNote`和`WizNote.tar.gz` 。
-恭喜，编译成功，直接cd进 WizNote 然后看到一个执行文件，直接先执行`./WizNote` ，完美！
+恭喜，编译成功，直接cd进 WizNote 然后看到一个执行文件，直接先执行`./WizNote` 
+
+![](http://7xk2gz.com1.z0.glb.clouddn.com/wiz2016-08-26%2009-23-53%20%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png)
+
+参考：
+1. http://www.wiz.cn/wiznote-qt/compile-wiznote-on-centos
+2. http://wiki.qt.io/QtWebEngineHowToTry
+
