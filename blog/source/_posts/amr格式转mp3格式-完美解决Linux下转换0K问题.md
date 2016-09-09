@@ -7,7 +7,7 @@ tags:
 - amr转mp3
 
 ------
-##**问题**
+## **问题**
 因项目需求，需要将 amr 格式的文件转成 mp3格式。
 网络上提供的思路大多是使用jave-x-x.jar。
 这个包确实有用，因为开发时是在windows环境中，测试转换虽然报了异常：
@@ -18,7 +18,7 @@ it.sauronsoftware.jave.EncoderException:   Duration: N/A, bitrate: N/A
 可是一旦部署到Linux环境当中，不是转换失败，就是转换的文件为大小 0 k。百思不得其解。 
 
 <!-- more -->
-##**原因**
+## **原因**
 经过一些资料和源码跟踪，终于找到了原因。
 jave的能转换的原理其实就是**调用外部的二进制可执行文件** `ffmpeg`，打开它的jar包就可以发现，它里面内置了：
 ![jave原jar包截图](http://7xkxil.com1.z0.glb.clouddn.com/jave-ffmpegjave-old.png)
@@ -29,7 +29,7 @@ jave的能转换的原理其实就是**调用外部的二进制可执行文件**
 起初我以为是调用外部的ffmpeg，所以重新安装编译了Linux的ffmpeg，然并卵。
 所以只能再想其他解决方案。
 
-##**解决**
+## **解决**
 知道原因之后，解决思路有两种。
 1. 不使用jave ，将jave一些核心的代码抽取出来，自己调用系统外部。
 2. 下载最新的ffmpeg，替换掉原先的ffmpeg。
@@ -38,7 +38,7 @@ jave的能转换的原理其实就是**调用外部的二进制可执行文件**
 
 
 
-##**下载和替换**
+## **下载和替换**
 下载站点：http://ffmpeg.org/download.html
 
 ![下载](http://7xkxil.com1.z0.glb.clouddn.com/jave-ffmpegdownload.png)
@@ -52,7 +52,7 @@ jave的能转换的原理其实就是**调用外部的二进制可执行文件**
 ![ffmpeg替换之后](http://7xkxil.com1.z0.glb.clouddn.com/jave-ffmpegjave-new.png)
 
 
-##**其他!失败看这里!**
+## **其他!失败看这里!**
 如果没成功，或者转换失败，**看这里**。
 在操作的时候，**为了验证服务器支持这种方式，你可以将下载回来的ffmpeg拷贝到你的服务器上，手动进行转换一次**，如果失败，可以留言哦。
 可以操作如下：
@@ -74,11 +74,16 @@ chmod +x ffmpeg
 ![日志和执行](http://7xkxil.com1.z0.glb.clouddn.com/jave-ffmpegll_log.png)
 
 
-##**成品下载**
+## **成品下载**
 这是博主制作好的jave.jar 包，亲们需要的直接下载：
 
 64位：[jave-1.0.2-x64.jar](http://7xkxil.com1.z0.glb.clouddn.com/jave-ffmpegjave-1.0.2.jar)
 
-##**吐槽**
+## **其他问题**
+很多反馈在命令下可以用，但放到项目里面就不能了。
+如果遇到这种情况，请先清除 `./tomcat/temp/jave-/` 里面的东西文件，因为tomcat会缓存一些库文件。
+*update 2016-9-9*
+
+## **吐槽**
 吐槽，之前自己自己编译，浪费好多时间，虽然也可以成功。但每换一个Linux环境就要重新编译。
 
