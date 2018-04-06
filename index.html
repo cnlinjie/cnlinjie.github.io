@@ -55,27 +55,30 @@
     <header>
         
   
-    <h1 class="title"><a href="/2018/04/15/test/测试新闻/">测试</a></h1>
+    <h1 class="title"><a href="/2018/02/03/test/test/">测试</a></h1>
   
 
       
         <div style="margin-top: 10px;" >
-            <time datetime="2018-04-14T16:00:00.000Z">发表于 2018-04-15</time>
+            <time datetime="2018-02-03T02:14:30.000Z">发表于 2018-02-03</time>
         </div>
       
   
     </header>
     <div class="entry">
       
-        <p><img src="http://7xkxil.com1.z0.glb.clouddn.com/2018-04-06-15230070123434.jpg" alt=""></p>
+
+	<!-- Table of Contents -->
+	
+	<!-- /Table of Contents -->
+
+        <p><img src="http://7xkxil.com1.z0.glb.clouddn.com/2018-04-06-288043-106.jpg" alt=""></p>
+<p>测试</p>
+
       
     </div>
     <footer>
       
-        
-          <div class="alignleft">
-            <a href="/2018/04/15/test/测试新闻/#more" class="more-link">Read More  |  详情</a>
-          </div>
         
         
       
@@ -308,53 +311,6 @@
     <header>
         
   
-    <h1 class="title"><a href="/2015/08/11/RESTful-api-version/">RESTful API version 的设计</a></h1>
-  
-
-      
-        <div style="margin-top: 10px;" >
-            <time datetime="2015-08-10T16:41:20.000Z">发表于 2015-08-11</time>
-        </div>
-      
-  
-    </header>
-    <div class="entry">
-      
-
-	<!-- Table of Contents -->
-	
-	<!-- /Table of Contents -->
-
-        <p>占座，关于RESTful API 的设计和版本控制。<br>占了有点久。<br>2016-4-21 更新<br>Test</p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  <script>
-    
-    </script>
-
-
-
-
-
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        
-  
     <h1 class="title"><a href="/2015/08/06/amr格式转mp3格式-完美解决Linux下转换0K问题/">java amr格式转mp3格式(完美解决Linux下转换0K问题)</a></h1>
   
 
@@ -467,9 +423,8 @@
     </header>
     <div class="entry">
       
-        <p>###思路<br>上一篇<a href="http://www.linjie.org/2015/06/15/Tomcat-%E5%A4%9A%E5%AE%9E%E4%BE%8B%E9%83%A8%E7%BD%B2%E8%84%9A%E6%9C%AC/" title="googe" target="_blank" rel="noopener">Tomcat 多实例部署脚本</a> 大概说了些多实例的一些方案，现在这篇就纯粹的说自动化脚本。<br>轻拍。</p>
-<p>####思路(基于上篇博文的基础)：</p>
-<blockquote>
+        <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>上一篇<a href="http://www.linjie.org/2015/06/15/Tomcat-%E5%A4%9A%E5%AE%9E%E4%BE%8B%E9%83%A8%E7%BD%B2%E8%84%9A%E6%9C%AC/" title="googe" target="_blank" rel="noopener">Tomcat 多实例部署脚本</a> 大概说了些多实例的一些方案，现在这篇就纯粹的说自动化脚本。<br>轻拍。</p>
+<h4 id="思路-基于上篇博文的基础-："><a href="#思路-基于上篇博文的基础-：" class="headerlink" title="思路(基于上篇博文的基础)："></a>思路(基于上篇博文的基础)：</h4><blockquote>
 <p>0、建立一个新目录, <strong>mkdir default_template</strong><br>1、在Tomcat中的将所需的配置文件取出来，放到这个新目录中<br>2、修改 server.xml 文件，将所有所需手工替换的用<code>占用符</code>占用<br>3、在conf 目录中，建立一个<code>./conf/Catalina/localhost/ROOT.xml</code> 文件（<code>注1</code> 说明为什么建立这个文件）<br>4、在default_template目录中建立：<code>logs</code>,<code>temp</code>,<code>work</code> 等三个为目录<br>5、在目录中建立启动和停止实例的脚本，参考上篇博文，(见<code>注2</code>)<br>6、使用脚本，替换此目录中所有的<code>占位符</code>，替代手工操作</p>
 </blockquote>
 <p><strong>注1：Tomcat中，如果要使用域名的根目录访问，需要将项目文件放在ROOT目录中，否则只能采用二级目录访问，而建立此<code>ROOT.xml</code> 文件，则可以任意指定，此文件中仅一句：<code>&lt;Context path=&quot;&quot; docBase=&quot;webapps_dir&quot; /&gt;</code>,其中path若为空，则默认为根目录没，具体可以下载此文件查看。 当然，还有其他的方式，只不过个人认为这种比较灵活</strong></p>
@@ -518,17 +473,15 @@
     </header>
     <div class="entry">
       
-        <p>###单实例部署的麻烦</p>
-<blockquote>
+        <h3 id="单实例部署的麻烦"><a href="#单实例部署的麻烦" class="headerlink" title="单实例部署的麻烦"></a>单实例部署的麻烦</h3><blockquote>
 <p>掀桌！单实例部署，TMD的每次重启所有项目都被影响！！</p>
 </blockquote>
 <p>单实例部署时，不管是直接放在webapps下，还是增加配置文件<code>./conf/server.xml</code> 中的<code>&lt;host&gt;</code> ，关闭和启动都是所有项目都受到影响 ，特别一些启动时间比较长的项目，等待很艹蛋，更特别的在于如果没有热部署或者热部署失败时，修改一个class或配置文件，重启的效率能让你掀桌！！</p>
-<p>###多实例的几种方式</p>
-<blockquote>
+<h3 id="多实例的几种方式"><a href="#多实例的几种方式" class="headerlink" title="多实例的几种方式"></a>多实例的几种方式</h3><blockquote>
 <p>1.多Tomcat软件实例<br>2.增加 CATALINA_BASE<br>3.其他的先略过不表</p>
 </blockquote>
 <p>Y,多实例不可避免，多实例的两种方式上面说了。</p>
-<p>####1.最简单就是多Tomcat，<br><strong>部署时拷贝一个Tomcat，然后修改端口。</strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 用来停止Tomcat的端口(8005),需改 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Server</span> <span class="attr">port</span>=<span class="string">"8005"</span> <span class="attr">shutdown</span>=<span class="string">"SHUTDOWN"</span>&gt;</span></span><br><span class="line">...</span><br><span class="line">	<span class="comment">&lt;!-- Http 访问端口(8080)，续改 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"8080"</span> <span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">connectionTimeout</span>=<span class="string">"20000"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">redirectPort</span>=<span class="string">"8443"</span> /&gt;</span></span><br><span class="line">	....</span><br><span class="line">     <span class="comment">&lt;!-- Ajp端口(8009) ，负责和其他的HTTP服务器建立连接。没用到就注释掉。 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"8009"</span> <span class="attr">protocol</span>=<span class="string">"AJP/1.3"</span> <span class="attr">redirectPort</span>=<span class="string">"8443"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Server</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="1-最简单就是多Tomcat，"><a href="#1-最简单就是多Tomcat，" class="headerlink" title="1.最简单就是多Tomcat，"></a>1.最简单就是多Tomcat，</h4><p><strong>部署时拷贝一个Tomcat，然后修改端口。</strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 用来停止Tomcat的端口(8005),需改 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Server</span> <span class="attr">port</span>=<span class="string">"8005"</span> <span class="attr">shutdown</span>=<span class="string">"SHUTDOWN"</span>&gt;</span></span><br><span class="line">...</span><br><span class="line">	<span class="comment">&lt;!-- Http 访问端口(8080)，续改 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"8080"</span> <span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">connectionTimeout</span>=<span class="string">"20000"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">redirectPort</span>=<span class="string">"8443"</span> /&gt;</span></span><br><span class="line">	....</span><br><span class="line">     <span class="comment">&lt;!-- Ajp端口(8009) ，负责和其他的HTTP服务器建立连接。没用到就注释掉。 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"8009"</span> <span class="attr">protocol</span>=<span class="string">"AJP/1.3"</span> <span class="attr">redirectPort</span>=<span class="string">"8443"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Server</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
       
     </div>
     <footer>
@@ -536,6 +489,51 @@
         
           <div class="alignleft">
             <a href="/2015/06/15/Tomcat-多实例部署脚本/#more" class="more-link">Read More  |  详情</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  <script>
+    
+    </script>
+
+
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        
+  
+    <h1 class="title"><a href="/2015/01/02/old-blog/">那些年一起写过的博客</a></h1>
+  
+
+      
+        <div style="margin-top: 10px;" >
+            <time datetime="2015-01-02T12:34:10.000Z">发表于 2015-01-02</time>
+        </div>
+      
+  
+    </header>
+    <div class="entry">
+      
+        <p>因为域名过期忘记续费，然后就没有然后了。<br>服务器的资料备份的零零散散的，之后域名又被我重新买了回来，幸运！<br>但是资料基本都丢失了。<br>今天查自己域名的时候，突然发现一个网站居然还有我域名的历史快照。<br>感动！虽然只有两张。<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/01/02/old-blog/#more" class="more-link">Read More  |  详情</a>
           </div>
         
         
@@ -578,6 +576,8 @@
   
     <li><a href="/categories/php/">php</a><small>1</small></li>
   
+    <li><a href="/categories/测试/">测试</a><small>1</small></li>
+  
   </ul>
 </div>
 
@@ -586,7 +586,7 @@
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/PHP-interceptor/" style="font-size: 10px;">PHP interceptor</a> <a href="/tags/RESTFul-api/" style="font-size: 10px;">RESTFul api</a> <a href="/tags/Tomcat/" style="font-size: 20px;">Tomcat</a> <a href="/tags/amr转mp3/" style="font-size: 10px;">amr转mp3</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jave/" style="font-size: 10px;">jave</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/sonatype/" style="font-size: 10px;">sonatype</a> <a href="/tags/sonatype-nexus-3/" style="font-size: 10px;">sonatype-nexus-3</a> <a href="/tags/springframework-version/" style="font-size: 10px;">springframework version</a> <a href="/tags/wiz/" style="font-size: 10px;">wiz</a> <a href="/tags/协作开发/" style="font-size: 10px;">协作开发</a> <a href="/tags/团队建设/" style="font-size: 10px;">团队建设</a> <a href="/tags/然并卵系列/" style="font-size: 10px;">然并卵系列</a>
+    <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/PHP-interceptor/" style="font-size: 10px;">PHP interceptor</a> <a href="/tags/Tomcat/" style="font-size: 20px;">Tomcat</a> <a href="/tags/amr转mp3/" style="font-size: 10px;">amr转mp3</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jave/" style="font-size: 10px;">jave</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/sonatype/" style="font-size: 10px;">sonatype</a> <a href="/tags/sonatype-nexus-3/" style="font-size: 10px;">sonatype-nexus-3</a> <a href="/tags/wiz/" style="font-size: 10px;">wiz</a> <a href="/tags/协作开发/" style="font-size: 10px;">协作开发</a> <a href="/tags/团队建设/" style="font-size: 10px;">团队建设</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/然并卵系列/" style="font-size: 10px;">然并卵系列</a>
   </div>
 </div>
 
@@ -597,7 +597,7 @@
   <ul class="entry">
     
       <li>
-        <a href="/2018/04/15/test/测试新闻/">测试</a>
+        <a href="/2018/02/03/test/test/">测试</a>
       </li>
     
       <li>
