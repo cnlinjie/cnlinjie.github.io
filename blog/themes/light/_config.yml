@@ -1,19 +1,24 @@
 menu:
-  Home: /
-  Archives: /archives
+  首页: /
+  归档: /archives
+  书单: /books
+  关于: /about
+
 
 widgets:
-- search
-- toc
 - category
 - tagcloud
 - recent_posts
 - links
 
+post_widgets:
+- toc
+
+
 #- duoshuo_recent_comments
 
 
-excerpt_link: Read More
+excerpt_link: Read More  |  详情
 
 twitter:
   username:
@@ -44,7 +49,6 @@ links:
   link: http://www.hdher.com/ 
 
 
-duoshuo: linjie
 cnzz: true
 
 #comment_provider: facebook

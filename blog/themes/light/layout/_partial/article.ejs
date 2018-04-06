@@ -4,11 +4,13 @@
   <% } %>
   <div class="post-content">
     <header>
+        <%- partial('post/title') %>
       <% if (item.layout != 'page'){ %>
-        <div class="icon"></div>
-        <time datetime="<%= item.date.toDate().toISOString() %>"><a href="<%- config.root %><%- item.path %>"><%= item.date.format(config.date_format) %></a></time>
+        <div style="margin-top: 10px;" >
+            <time datetime="<%= item.date.toDate().toISOString() %>">发表于 <%= item.date.format(config.date_format) %></time>
+        </div>
       <% } %>
-      <%- partial('post/title') %>
+  
     </header>
     <div class="entry">
       <% if (item.excerpt && index){ %>
@@ -40,7 +42,7 @@
         </div>
         <% } %>
       <% } else { %>
-        <%- partial('post/category') %>
+         <%- partial('post/category') %>
         <%- partial('post/tag') %>
         <%- partial('post/share') %>
       <% } %>
@@ -48,5 +50,11 @@
     </footer>
   </div>
 </article>
+
+<% if (index){ %>
+  <script>
+    
+    </script>
+<% } %>
 
 <%- partial('comment') %>

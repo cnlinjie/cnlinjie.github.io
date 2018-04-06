@@ -6,10 +6,10 @@ tags:
 - Tomcat
 ---
 
-###思路
+### 思路
 上一篇[Tomcat 多实例部署脚本]( http://www.linjie.org/2015/06/15/Tomcat-%E5%A4%9A%E5%AE%9E%E4%BE%8B%E9%83%A8%E7%BD%B2%E8%84%9A%E6%9C%AC/ "googe") 大概说了些多实例的一些方案，现在这篇就纯粹的说自动化脚本。
 轻拍。
-####思路(基于上篇博文的基础)：
+#### 思路(基于上篇博文的基础)：
 > 0、建立一个新目录, **mkdir default_template**
 > 1、在Tomcat中的将所需的配置文件取出来，放到这个新目录中
 > 2、修改 server.xml 文件，将所有所需手工替换的用`占用符`占用
@@ -24,7 +24,7 @@ tags:
 
 <!-- more -->
 
-###脚本实现
+### 脚本实现
 具体直接看脚本实现：
 ```
 #/bin/sh
@@ -139,7 +139,7 @@ fi
 echo "=========Success============="
 ```
 
-###实现结果截图
+### 实现结果截图
 
 根据上面的脚本执行结果。如图1：
 ![图1 执行结果 ](http://7xk2gz.com1.z0.glb.clouddn.com/tomcat_deploy_shell_execing.png)

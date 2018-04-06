@@ -3,10 +3,10 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Linjie
-subtitle: 人无远虑必有近忧。
+title: 林杰
+subtitle: 一切又回到原地。
 description: 
-author: Linjie
+author: 林杰
 language: zh-CN 
 timezone:
 
@@ -65,16 +65,20 @@ pagination_dir: page
 ## Themes: http://hexo.io/themes/
 theme: light
 
+# Markdown-it config
+## Docs: https://github.com/celsomiranda/hexo-renderer-markdown-it/wiki/
+markdown: 'commonmark'
+
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
  - type: git
    repo: git@github.com:cnlinjie/cnlinjie.github.io.git
    branch: master
- - type: git
+# - type: git
 #   repo: git://git.coding.net/cnlinjie/cnlinjie.git 
-   repo: git@git.coding.net:cnlinjie/cnlinjie.git
-   branch: gitcafe-pages
+#   repo: git@git.coding.net:cnlinjie/cnlinjie.git
+#   branch: gitcafe-pages
 # - type: git
 #   repo: git@gitcafe.com:cnlinjie/cnlinjie.git
 #   branch: gitcafe-pages
