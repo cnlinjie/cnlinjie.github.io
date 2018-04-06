@@ -1,0 +1,223 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>团队建设-Maven 仓库 Sonatype Nexus 的搭建 | 林杰</title>
+  <meta name="author" content="林杰">
+  
+  <meta name="description" content="PS：新瓶装老酒，都是些老东西，写写提提神。
+
+  协作是团队开发和个人开发最主要的区别，除了日常必要的磨练和沟通之外，最重要的是如何定一个合理的规矩，用来解决团队所可能出现的冲突，且慢慢积累团队技术底蕴和文化。
+
+ Sonatype 私有库 日常开发中Maven 已经必备！
+不过一般个人开发也不用配置什么，直接使用Maven 中央库即可，就算有什么私人或没传到中央库的jar文件，也可以使用各种方式加入到项目中来，所以不太必要有什么自己的私有库。
+不过团队开发中，有些企业内部有自己不宜公开的开发框架或基础框架等，如果上面个人的解决方案，可能是生成一个Jar文件扔到项目里面，不过如果涉及到基础框架更新或维护，这可能就不太理想了，所以有一套团队或企业内部的私有库，就显的很重要了。
+好了，完毕！不罗嗦了。
+PS2：英文文档很全，如果没什么压力的话，可以直接看官方文档。 :)
+地址：https://books.sonatype.com/nexus-book/3.0/reference/index.html">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="团队建设-Maven 仓库 Sonatype Nexus 的搭建"/>
+  <meta property="og:site_name" content="林杰"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="林杰" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">林杰</a></h1>
+  <h2><a href="/">一切又回到原地。</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    
+
+<div id="main-col" class="alignleft">
+        <div id="wrapper" >
+                <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <time datetime="2016-04-23T11:13:37.000Z"><a href="/2016/04/23/Sonatype-nexus-3-build-run/">2016-04-23</a></time>
+      
+      
+  
+    <h1 class="title">团队建设-Maven 仓库 Sonatype Nexus 的搭建</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+
+	<!-- Table of Contents -->
+	
+  		<div id="toc" class="toc-article">
+  		<h1>TOC</h1>
+  		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sonatype-私有库"><span class="toc-number">1.</span> <span class="toc-text"> Sonatype 私有库 </span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前提"><span class="toc-number">2.</span> <span class="toc-text"> 前提 </span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下载"><span class="toc-number">3.</span> <span class="toc-text"> 下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行"><span class="toc-number">4.</span> <span class="toc-text"> 运行 </span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#运行其他"><span class="toc-number">4.1.</span> <span class="toc-text">运行其他</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#项目使用"><span class="toc-number">5.</span> <span class="toc-text">项目使用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#先试一试能不能代理中央库，实现下载"><span class="toc-number">5.1.</span> <span class="toc-text">先试一试能不能代理中央库，实现下载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#再试一试能不能部属构件到nexus"><span class="toc-number">5.2.</span> <span class="toc-text"> 再试一试能不能部属构件到nexus</span></a></li></ol></li></ol>
+  		</div>
+	
+	<!-- /Table of Contents -->
+
+        <p>PS：新瓶装老酒，都是些老东西，写写提提神。</p>
+<blockquote>
+<p>  协作是团队开发和个人开发最主要的区别，除了日常必要的磨练和沟通之外，最重要的是如何定一个合理的规矩，用来解决团队所可能出现的冲突，且慢慢积累团队技术底蕴和文化。</p>
+</blockquote>
+<h3 id="Sonatype-私有库"><a href="#Sonatype-私有库" class="headerlink" title=" Sonatype 私有库 "></a><strong> Sonatype 私有库 </strong></h3><p>日常开发中Maven 已经必备！</p>
+<p>不过一般个人开发也不用配置什么，直接使用Maven 中央库即可，就算有什么私人或没传到中央库的jar文件，也可以使用各种方式加入到项目中来，所以不太必要有什么自己的私有库。</p>
+<p>不过团队开发中，有些企业内部有自己不宜公开的开发框架或基础框架等，如果上面个人的解决方案，可能是生成一个Jar文件扔到项目里面，不过如果涉及到基础框架更新或维护，这可能就不太理想了，所以有一套团队或企业内部的私有库，就显的很重要了。</p>
+<p>好了，完毕！不罗嗦了。</p>
+<p><code>PS2：英文文档很全，如果没什么压力的话，可以直接看官方文档。 :)</code></p>
+<p>地址：<a href="https://books.sonatype.com/nexus-book/3.0/reference/index.html" target="_blank" rel="noopener">https://books.sonatype.com/nexus-book/3.0/reference/index.html</a></p>
+<a id="more"></a>
+<h3 id="前提"><a href="#前提" class="headerlink" title=" 前提 "></a><strong> 前提 </strong></h3><p>当前 sonatype neuxs 基于Java,所以需要在环境里面安装jdk，当前这个版本需要jdk1.8 ，所以请先配好java环境。<br>因为我本机已经安装了Java，且java安装教程很多，请参考网络上的。</p>
+<h3 id="下载"><a href="#下载" class="headerlink" title=" 下载"></a><strong> 下载</strong></h3><p>开始下载，地址：<a href="http://www.sonatype.com/download-oss-sonatype" target="_blank" rel="noopener">http://www.sonatype.com/download-oss-sonatype</a></p>
+<p><img src="http://7xk2gz.com1.z0.glb.clouddn.com/Sonatype-nexus-3-build-run2016-04-23%2021-51-03%20%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" alt="图片"></p>
+<p>当前最新版本：nexus-3.0.0-03 (这个版本支持npm,Nuget等)</p>
+<p>平台：根据环境选择（我这边选Unix)</p>
+<p>OK ，点击下载就好了。</p>
+<h3 id="运行"><a href="#运行" class="headerlink" title=" 运行 "></a><strong> 运行 </strong></h3><p>将下载好的文件直接解压，见如图：<br><img src="http://7xk2gz.com1.z0.glb.clouddn.com/Sonatype-nexus-3-build-run2016-04-23%2021-54-25%20%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" alt=""></p>
+<p>OK，解压好了，进入到bin里面，我是放到了/opt 目录下面，所以直接：<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cd</span> <span class="string">/opt/nexus-3.0.0-03/bin/</span></span><br><span class="line"><span class="string">./nexus</span></span><br></pre></td></tr></table></figure></p>
+<p>它提示：<br><figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Usage: ./nexus &#123;start|<span class="type">stop</span>|<span class="type">run</span>|<span class="type">run</span>-redirect|<span class="type">status</span>|<span class="type">restart</span>|<span class="type">force</span>-reload&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果是以root身份运行，则会看到：<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost bin]# ./nexus</span><br><span class="line"><span class="symbol">WARNING: </span>***********************************************************<span class="strong">*</span></span><br><span class="line"><span class="strong">WARNING: Detected execution as "root" user.  This is NOT recommended!</span></span><br><span class="line"><span class="strong">WARNING: *</span>**********************************************************<span class="strong">*</span></span><br><span class="line"><span class="strong">Usage: ./nexus &#123;start|stop|run|run-redirect|status|restart|force-reload&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>好了，根据提示，现在开始运行：<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[linjie<span class="variable">@localhost</span> bin]<span class="variable">$ </span>./nexus start</span><br><span class="line">Starting nexus</span><br></pre></td></tr></table></figure></p>
+<p>OK，如果片没什么问题，就应该启动起来了，访问：<br><a href="http://localhost:8081/" target="_blank" rel="noopener">http://localhost:8081/</a><br>默认的端口是8081。<br>此时应该可以看到：<br><img src="http://7xk2gz.com1.z0.glb.clouddn.com/Sonatype-nexus-3-build-run2016-04-23%2022-06-35%20%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" alt=""></p>
+<p>点击 右边上角的 Sign In，默认账号密码：<code>admin</code>,<code>admin123</code>.</p>
+<p>恭喜，已经安装好了，:) ， 不用设置什么数据库密码，之类的.</p>
+<p>登陆之后，看看仓库：<br><img src="http://7xk2gz.com1.z0.glb.clouddn.com/Sonatype-nexus-3-build-run2016-04-23%2022-12-52%20%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" alt=""></p>
+<p>Name 就不说了，其他的：</p>
+<p><strong>Type </strong></p>
+<ol>
+<li>proxy 是代理仓库 ，如果自己私有库没有对应的资源(jar等)，会到这里去找。</li>
+<li>hosted 是宿主仓库 ,是自己的私有库地址，这个就是自己的。这个有 releases 和snapshots 两种类型，你如果自己创建的时候，需要指定 ，一个是正式发布地址，一个是开发中地址。</li>
+<li>group 管理组 ，组是Nexus一个强大的特性，它允许你在一个单独的URL中组合多个仓库。比如这里默认组合了：<code>maven-central</code>、<code>maven-releases</code>和<code>maven-snapshots</code> ，一般直接引用这个地址就好了。</li>
+</ol>
+<p><strong>Status</strong><br>这里本来也没什么好说的，不过却遇到一个跟 neuxs 2.x不同的坑。如果用过2.x可能就入坑，比如我。</p>
+<p>这里目有两个状态：<code>Online</code> 和 <code>Online - Remote Connection Pending...</code></p>
+<p>首先说下，这是正常的，没坑，如果没和2.x版本对比过，就是这样的。</p>
+<p>为什么说坑，因为当我成功安装了之后，马上迫不及待的就开始搜索，比如：springframework ,这是搜索出来一片空白，内心一慌，我靠！怎么回事，如果找到这里，点了进去，如图：</p>
+<p>狂按 Rebuild Index, 提示我成功之后，立即搜索，还是一片空白！各种方式，依旧无用！:(  </p>
+<p>之后我google 这里：<br><a href="http://stackoverflow.com/questions/34782859/sonatype-nexus-3-remote-connection-pending" target="_blank" rel="noopener">http://stackoverflow.com/questions/34782859/sonatype-nexus-3-remote-connection-pending</a></p>
+<blockquote>
+<p>The “connection pending” message is normal in 3.0m6. It just means nothing has been downloaded through the proxy repository yet. Try running a build that retrieves artifacts through the proxy, the status will change once the first file of the artifact is downloaded.</p>
+</blockquote>
+<p>就放下了。</p>
+<h4 id="运行其他"><a href="#运行其他" class="headerlink" title="运行其他"></a><strong>运行其他</strong></h4><p>左边的控制栏，分为三类，仓库，安全（用户），支持，系统，慢慢体验。</p>
+<h3 id="项目使用"><a href="#项目使用" class="headerlink" title="项目使用"></a><strong>项目使用</strong></h3><h4 id="先试一试能不能代理中央库，实现下载"><a href="#先试一试能不能代理中央库，实现下载" class="headerlink" title="先试一试能不能代理中央库，实现下载"></a><strong>先试一试能不能代理中央库，实现下载</strong></h4><p>pom.xml 文件：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">id</span>&gt;</span>harme-maven-public<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">name</span>&gt;</span>maven-public<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">url</span>&gt;</span>http://localhost:8081/repository/maven-public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">snapshots</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">snapshots</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">releases</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">releases</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">pluginRepositories</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">pluginRepository</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">id</span>&gt;</span>harme-maven-public<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">name</span>&gt;</span>maven-public<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">url</span>&gt;</span>http://localhost:8081/repository/maven-public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">releases</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">enabled</span>&gt;</span>true<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">releases</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">snapshots</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">enabled</span>&gt;</span>false<span class="tag">&lt;/<span class="name">enabled</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">snapshots</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">pluginRepository</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">pluginRepositories</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="再试一试能不能部属构件到nexus"><a href="#再试一试能不能部属构件到nexus" class="headerlink" title=" 再试一试能不能部属构件到nexus"></a><strong> 再试一试能不能部属构件到nexus</strong></h4><p>setting.xml 文件，在servers节点里面：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">server</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">id</span>&gt;</span>oss<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">username</span>&gt;</span>admin<span class="tag">&lt;/<span class="name">username</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">password</span>&gt;</span>admin123<span class="tag">&lt;/<span class="name">password</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">server</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>pom.xml 文件再加：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">distributionManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>oss<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://localhost:8081/repository/maven-releases/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>oss<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://localhost:8081/repository/maven-snapshots/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">distributionManagement</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>好了。先这样。</p>
+<p>PS3： 如果想要以 service 这种服务运行的话，也很简单，看文档：<br><a href="https://books.sonatype.com/nexus-book/3.0/reference/install.html#service-linux" target="_blank" rel="noopener">https://books.sonatype.com/nexus-book/3.0/reference/install.html#service-linux</a></p>
+
+      
+    </div>
+    <footer>
+      
+         
+  
+  <div class="categories">
+    <a href="/categories/Maven/">Maven</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/maven/">maven</a>, <a href="/tags/sonatype/">sonatype</a>, <a href="/tags/sonatype-nexus-3/">sonatype-nexus-3</a>, <a href="/tags/团队建设/">团队建设</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+
+
+                
+<div class="prev_next clearfix">
+  
+  <a href="/2016/08/25/compile-install-wiznote/" class="prev" title="fedora23 编译 WizNote2.3.3">上一篇<span class="xs-hidden">：fedora23 编译 WizNote2.3.3</span></a>
+  
+  
+  <a href="/2016/04/22/php-interceptor/" class="next" title="php 用nginx实现拦截器的思路">下一篇<span class="xs-hidden">：php 用nginx实现拦截器的思路</span></a>
+  
+</div>
+
+        </div>
+</div>
+<aside id="sidebar" class="alignright">
+    
+  <div class="widget widget-toc" style="display: none">
+  <h3 class="title">文章目录</h3>
+  <div class="container" style="padding: 15px 20px;">
+  </div>
+</div>
+<script src="/js/toc.js"></script>
+
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft" style="margin-top: 20px;">
+  
+  &copy; 2018 林杰
+  
+   |  &nbsp; Proudly powered by Hexo  &nbsp;&nbsp;&nbsp;
+</div>
+
+<!-- cnzz -->
+
+<div style="padding-left:100px; display: none;" >
+
+<script src="http://s5.cnzz.com/stat.php?id=3903372&web_id=3903372" language="JavaScript"></script>
+
+</div>
+
+
+<div class="clearfix"></div>
+</footer>
+  <script src="//lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
