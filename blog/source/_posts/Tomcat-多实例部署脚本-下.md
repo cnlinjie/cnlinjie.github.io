@@ -26,6 +26,7 @@ tags:
 
 ### 脚本实现
 具体直接看脚本实现：
+
 ```
 #/bin/sh
 
@@ -154,12 +155,15 @@ echo "=========Success============="
 ![图3 webapps目录](http://7xk2gz.com1.z0.glb.clouddn.com/tomcat_deploy_shell_webapps.png)
 
 此时在配置文件目录中，直接运行：
-```
+
+```sh
+#/bin/sh
 ./tomcat.sh start
 #或
 ./tomcat.sh stop 
 
 ```
+
 就可以直接运行。
 写的粗糙，轻拍。
 

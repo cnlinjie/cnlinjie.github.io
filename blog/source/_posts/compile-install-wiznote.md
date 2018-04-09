@@ -21,13 +21,17 @@ tags: wiz
     
 以下是我所遇到的问题，如果同样问题的可以对号入座，如果不一样，可以留言，看到就回：
 1.  **卡在了这，提示我找不到 这几个库文件。**
+
 ```
 cp /usr/lib/x86_64-linux-gnu/libQtWebKit.so.4 ./
 cp /usr/lib/x86_64-linux-gnu/libQtGui.so.4 ./
 cp /usr/lib/x86_64-linux-gnu//libQtXml.so.4 ./
 cp /usr/lib/x86_64-linux-gnu/libQtNetwork.so.4 ./
 cp /usr/lib/x86_64-linux-gnu/libQtCore.so.4 ./
+
 ```
+
+
 <!-- more -->
 我直接google搜索：libQtWebKit.so 
 发现是在：http://rpm.pbone.net/index.php3/stat/3/srodzaj/1/search/libQtWebKit.so.4()(64bit)
@@ -38,19 +42,22 @@ cp /usr/lib/x86_64-linux-gnu/libQtCore.so.4 ./
 
 好了，安装过后，再继续，提示我还是找不到，纳闷。
 于是通过 find /usr/ -name "libQtWebKit.so.4" 去查，发现路径跟安装脚本不一样，在`/usr/lib/libQtWebKit.so.4 ` 于是我查了剩下的几个位置，果然都不一样，于是修改安装脚本，如下：
-```bash
+
+```
 cp /usr/lib/libQtWebKit.so.4 ./
 cp /usr/lib/libQtGui.so.4 ./
 cp /usr/lib/libQtXml.so.4 ./
 cp /usr/lib/libQtNetwork.so.4 ./
 cp /usr/lib/libQtCore.so.4 ./
 ```
+
 OK，继续执行，这个问题就过了。
 2. **这次遇到的是QT问题，提示没有找到QT的什么什么，还需要设置QT_DIR的环境变量（当时没有记录下来）。**
 
 好，缺少QT环境，那就安装，怎么装，我先去wiz.cn看了看，有篇 http://www.wiz.cn/wiznote-qt/compile-wiznote-on-centos
 在`下载安装QT 4.8.6 `之前可以照做这个：
 安装开发库
+
 ```
 sudo yum install libX11-devel, libXext-devel, libXtst-devel
 sudo yum install libX11-devel libXext-devel libXtst-devel
@@ -62,7 +69,9 @@ sudo yum install libxcb libxcb-devel xcb-util xcb-util-devel
 sudo yum install freetype-devel
 sudo yum install fontconfig-devel
 ```
+
 还有我后来从QT官网找到个：
+
 ```
  yum install mesa-libEGL-devel libgcrypt-devel libgcrypt pciutils-devel nss-devel libXtst-devel gperf
 cups-devel pulseaudio-libs-devel libgudev1-devel systemd-devel libcap-devel alsa-lib-devel flex bison ruby

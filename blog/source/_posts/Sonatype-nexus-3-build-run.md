@@ -11,7 +11,7 @@ PS：新瓶装老酒，都是些老东西，写写提提神。
 
 >   协作是团队开发和个人开发最主要的区别，除了日常必要的磨练和沟通之外，最重要的是如何定一个合理的规矩，用来解决团队所可能出现的冲突，且慢慢积累团队技术底蕴和文化。
 
-### ** Sonatype 私有库 **
+###   Sonatype 私有库 
 日常开发中Maven 已经必备！
 
 不过一般个人开发也不用配置什么，直接使用Maven 中央库即可，就算有什么私人或没传到中央库的jar文件，也可以使用各种方式加入到项目中来，所以不太必要有什么自己的私有库。
@@ -26,11 +26,11 @@ PS：新瓶装老酒，都是些老东西，写写提提神。
 
 <!-- more -->
 
-### ** 前提 **
+###  前提 
 当前 sonatype neuxs 基于Java,所以需要在环境里面安装jdk，当前这个版本需要jdk1.8 ，所以请先配好java环境。
 因为我本机已经安装了Java，且java安装教程很多，请参考网络上的。
 
-### ** 下载**
+###  下载
 开始下载，地址：http://www.sonatype.com/download-oss-sonatype
 
 ![图片](http://7xk2gz.com1.z0.glb.clouddn.com/Sonatype-nexus-3-build-run2016-04-23%2021-51-03%20%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png)
@@ -41,23 +41,31 @@ PS：新瓶装老酒，都是些老东西，写写提提神。
 
 OK ，点击下载就好了。
 
-### ** 运行 **
+###  运行 
 
 将下载好的文件直接解压，见如图：
 ![](http://7xk2gz.com1.z0.glb.clouddn.com/Sonatype-nexus-3-build-run2016-04-23%2021-54-25%20%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png)
 
 OK，解压好了，进入到bin里面，我是放到了/opt 目录下面，所以直接：
-```
+
+```sh
 cd /opt/nexus-3.0.0-03/bin/
 ./nexus
 ```
+
 它提示：
+
+
 ```
 Usage: ./nexus {start|stop|run|run-redirect|status|restart|force-reload}
 
 ```
+
+
 如果是以root身份运行，则会看到：
-```
+
+
+```sh
 [root@localhost bin]# ./nexus
 WARNING: ************************************************************
 WARNING: Detected execution as "root" user.  This is NOT recommended!
@@ -67,11 +75,13 @@ Usage: ./nexus {start|stop|run|run-redirect|status|restart|force-reload}
 ```
 
 好了，根据提示，现在开始运行：
-```
+
+```sh
 [linjie@localhost bin]$ ./nexus start
 Starting nexus
 
 ```
+
 OK，如果片没什么问题，就应该启动起来了，访问：
 http://localhost:8081/
 默认的端口是8081。
@@ -87,12 +97,15 @@ http://localhost:8081/
 
 Name 就不说了，其他的：
 
-**Type **
+
+Type 
+
 1. proxy 是代理仓库 ，如果自己私有库没有对应的资源(jar等)，会到这里去找。
 2. hosted 是宿主仓库 ,是自己的私有库地址，这个就是自己的。这个有 releases 和snapshots 两种类型，你如果自己创建的时候，需要指定 ，一个是正式发布地址，一个是开发中地址。
 3. group 管理组 ，组是Nexus一个强大的特性，它允许你在一个单独的URL中组合多个仓库。比如这里默认组合了：`maven-central`、`maven-releases`和`maven-snapshots` ，一般直接引用这个地址就好了。
 
-**Status**
+Status
+
 这里本来也没什么好说的，不过却遇到一个跟 neuxs 2.x不同的坑。如果用过2.x可能就入坑，比如我。
 
 这里目有两个状态：`Online` 和 `Online - Remote Connection Pending...`
@@ -110,17 +123,18 @@ http://stackoverflow.com/questions/34782859/sonatype-nexus-3-remote-connection-p
 
 就放下了。
 
-#### **运行其他**
+#### 运行其他
 
 左边的控制栏，分为三类，仓库，安全（用户），支持，系统，慢慢体验。
 
-### **项目使用**
+### 项目使用
 
 
 #### **先试一试能不能代理中央库，实现下载**
 
 pom.xml 文件：
-```
+
+```xml
 <repositories>
 		<repository>
 			<id>harme-maven-public</id>
@@ -151,10 +165,12 @@ pom.xml 文件：
 
 
 
-#### ** 再试一试能不能部属构件到nexus**
+####  再试一试能不能部属构件到nexus 
 
 setting.xml 文件，在servers节点里面：
-```
+
+```xml
+
 <server>
   <id>oss</id>
   <username>admin</username>
@@ -162,7 +178,9 @@ setting.xml 文件，在servers节点里面：
 </server>
 
 ```
+
 pom.xml 文件再加：
+
 ```xml
 <distributionManagement>
     <repository>
@@ -183,3 +201,5 @@ pom.xml 文件再加：
 
 PS3： 如果想要以 service 这种服务运行的话，也很简单，看文档：
 https://books.sonatype.com/nexus-book/3.0/reference/install.html#service-linux
+
+
