@@ -55,6 +55,57 @@
     <header>
         
   
+    <h1 class="title"><a href="/2018/04/08/Teamcity install and build /">Teamcity 安装部署和项目构建 初探</a></h1>
+  
+
+      
+        <div style="margin-top: 10px;" >
+            <time datetime="2018-04-08T02:14:30.000Z">发表于 2018-04-08</time>
+        </div>
+      
+  
+    </header>
+    <div class="entry">
+      
+        <h1 id="本篇初衷"><a class="markdownIt-Anchor" href="#本篇初衷"></a> 本篇初衷</h1>
+<ol>
+<li>学习和了解Teamcity的概念和功能。</li>
+<li>基本使用 Teamcity ，实现代码提交到git后，自动化编译，运行。</li>
+</ol>
+<p>Teamcity 一些复杂的操作也还在摸索当中，一样还是要看文档，所以有事没事多翻翻官网的文档，一定会有收货，英语不好也可以恰当的使用谷歌的全文翻译，不要被局限住。</p>
+<p>看文档带着目的性去看，先看文档目录，然后让文档按照你的思路去组合，东翻翻西翻翻的结果还是一团浆糊。</p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2018/04/08/Teamcity install and build /#more" class="more-link">Read More  |  详情</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  <script>
+    
+    </script>
+
+
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        
+  
     <h1 class="title"><a href="/2018/02/03/test/test/">测试</a></h1>
   
 
@@ -74,6 +125,8 @@
 
         <p><img src="http://7xkxil.com1.z0.glb.clouddn.com/2018-04-06-288043-106.jpg" alt=""></p>
 <p>测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"ss"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://7xkxil.com1.z0.glb.clouddn.com/2018-04-08-62511-106.jpg" alt="62511-106"></p>
 
       
     </div>
@@ -115,23 +168,28 @@
     </header>
     <div class="entry">
       
-        <h2 id="前期环境准备"><a href="#前期环境准备" class="headerlink" title="前期环境准备"></a>前期环境准备</h2><ol>
+        <h2 id="前期环境准备"><a class="markdownIt-Anchor" href="#前期环境准备"></a> 前期环境准备</h2>
+<ol>
 <li><strong>为了方便操作，请先切换到root环境下!</strong></li>
 <li>前期的gcc,make 等编译环境应该默认你们有了。</li>
 </ol>
-<h2 id="下载WizNote-源码"><a href="#下载WizNote-源码" class="headerlink" title="下载WizNote 源码"></a>下载WizNote 源码</h2><ol>
-<li>打开官网应该都知道源码的地址放在哪，如果你会点git操作就更好了。<br> 地址：<em><a href="https://github.com/WizTeam/WizQTClient" target="_blank" rel="noopener">https://github.com/WizTeam/WizQTClient</a></em></li>
+<h2 id="下载wiznote-源码"><a class="markdownIt-Anchor" href="#下载wiznote-源码"></a> 下载WizNote 源码</h2>
+<ol>
+<li>打开官网应该都知道源码的地址放在哪，如果你会点git操作就更好了。<br>
+地址：<em><a href="https://github.com/WizTeam/WizQTClient" target="_blank" rel="noopener">https://github.com/WizTeam/WizQTClient</a></em></li>
 <li>下载回来解压，然后cd进目录，直接执行<code>./linux-package.sh</code> 进行编译安装。</li>
 <li>OK，可以吗？反正我就是不行，报了一大堆问题，所以继续。</li>
 </ol>
-<h2 id="准备依赖环境"><a href="#准备依赖环境" class="headerlink" title="准备依赖环境"></a>准备依赖环境</h2><pre><code>本次依赖环境所需是根据本次经验而成，如果有其他问题可以留言。
+<h2 id="准备依赖环境"><a class="markdownIt-Anchor" href="#准备依赖环境"></a> 准备依赖环境</h2>
+<pre><code>本次依赖环境所需是根据本次经验而成，如果有其他问题可以留言。
 
 核心就是：缺什么装什么，有yum(dnf)就直接装，没有先找找有没现成的 rpm ,再没有就编译。所以不必惊慌。
-</code></pre><p>以下是我所遇到的问题，如果同样问题的可以对号入座，如果不一样，可以留言，看到就回：</p>
+</code></pre>
+<p>以下是我所遇到的问题，如果同样问题的可以对号入座，如果不一样，可以留言，看到就回：</p>
 <ol>
-<li><strong>卡在了这，提示我找不到 这几个库文件。</strong><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">x86_64</span>-<span class="title">linux</span>-<span class="title">gnu</span>/<span class="title">libQtWebKit</span>.<span class="title">so</span>.4 ./</span></span><br><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">x86_64</span>-<span class="title">linux</span>-<span class="title">gnu</span>/<span class="title">libQtGui</span>.<span class="title">so</span>.4 ./</span></span><br><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">x86_64</span>-<span class="title">linux</span>-<span class="title">gnu</span>//<span class="title">libQtXml</span>.<span class="title">so</span>.4 ./</span></span><br><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">x86_64</span>-<span class="title">linux</span>-<span class="title">gnu</span>/<span class="title">libQtNetwork</span>.<span class="title">so</span>.4 ./</span></span><br><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">x86_64</span>-<span class="title">linux</span>-<span class="title">gnu</span>/<span class="title">libQtCore</span>.<span class="title">so</span>.4 ./</span></span><br></pre></td></tr></table></figure>
-</li>
+<li><strong>卡在了这，提示我找不到 这几个库文件。</strong></li>
 </ol>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">x86_64</span>-<span class="title">linux</span>-<span class="title">gnu</span>/<span class="title">libQtWebKit</span>.<span class="title">so</span>.4 ./</span></span><br><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">x86_64</span>-<span class="title">linux</span>-<span class="title">gnu</span>/<span class="title">libQtGui</span>.<span class="title">so</span>.4 ./</span></span><br><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">x86_64</span>-<span class="title">linux</span>-<span class="title">gnu</span>//<span class="title">libQtXml</span>.<span class="title">so</span>.4 ./</span></span><br><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">x86_64</span>-<span class="title">linux</span>-<span class="title">gnu</span>/<span class="title">libQtNetwork</span>.<span class="title">so</span>.4 ./</span></span><br><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">x86_64</span>-<span class="title">linux</span>-<span class="title">gnu</span>/<span class="title">libQtCore</span>.<span class="title">so</span>.4 ./</span></span><br></pre></td></tr></table></figure>
       
     </div>
     <footer>
@@ -178,9 +236,10 @@
       
         <p>PS：新瓶装老酒，都是些老东西，写写提提神。</p>
 <blockquote>
-<p>  协作是团队开发和个人开发最主要的区别，除了日常必要的磨练和沟通之外，最重要的是如何定一个合理的规矩，用来解决团队所可能出现的冲突，且慢慢积累团队技术底蕴和文化。</p>
+<p>协作是团队开发和个人开发最主要的区别，除了日常必要的磨练和沟通之外，最重要的是如何定一个合理的规矩，用来解决团队所可能出现的冲突，且慢慢积累团队技术底蕴和文化。</p>
 </blockquote>
-<h3 id="Sonatype-私有库"><a href="#Sonatype-私有库" class="headerlink" title=" Sonatype 私有库 "></a><strong> Sonatype 私有库 </strong></h3><p>日常开发中Maven 已经必备！</p>
+<h3 id="sonatype-私有库"><a class="markdownIt-Anchor" href="#sonatype-私有库"></a> Sonatype 私有库</h3>
+<p>日常开发中Maven 已经必备！</p>
 <p>不过一般个人开发也不用配置什么，直接使用Maven 中央库即可，就算有什么私人或没传到中央库的jar文件，也可以使用各种方式加入到项目中来，所以不太必要有什么自己的私有库。</p>
 <p>不过团队开发中，有些企业内部有自己不宜公开的开发框架或基础框架等，如果上面个人的解决方案，可能是生成一个Jar文件扔到项目里面，不过如果涉及到基础框架更新或维护，这可能就不太理想了，所以有一套团队或企业内部的私有库，就显的很重要了。</p>
 <p>好了，完毕！不罗嗦了。</p>
@@ -235,8 +294,16 @@
 	
 	<!-- /Table of Contents -->
 
-        <p>首先感谢一老友提供的思路。<br>接着～，<br>PHP现有项目上发现一个问题，上传到项目的文件随意用了随机字符串，但只有登陆用户把这个地址发出去，其他人就可以直接访问或下载该文件。<br>比如：<a href="http://wwww.test.com/upload/xxxxx.xls" target="_blank" rel="noopener">http://wwww.test.com/upload/xxxxx.xls</a><br>可以直接下载下来，因为是直接存在的文件。<br>此时要做限制，思路就是拦截下 /upload/ 这个路径，用Java的话就是加个拦截器，PHP的话没做过这个，友人提供的思路用nginx实现。<br>用nginx做匹配拦截，然后转发到对应的php方法，将之后的xxxxx.xls 当作参数传，如下：<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">location  ~ <span class="regexp">/upload/</span> &#123;</span><br><span class="line">      rewrite  ^<span class="regexp">/upload/</span>(.*)$  <span class="regexp">/index.php/</span>Filter<span class="regexp">/get_img?path=/</span><span class="variable">$1</span>  last;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>此时在 PHP做处理即可。<br>记录下～</p>
+        <p>首先感谢一老友提供的思路。<br>
+接着～，<br>
+PHP现有项目上发现一个问题，上传到项目的文件随意用了随机字符串，但只有登陆用户把这个地址发出去，其他人就可以直接访问或下载该文件。<br>
+比如：<a href="http://wwww.test.com/upload/xxxxx.xls" target="_blank" rel="noopener">http://wwww.test.com/upload/xxxxx.xls</a><br>
+可以直接下载下来，因为是直接存在的文件。<br>
+此时要做限制，思路就是拦截下 /upload/ 这个路径，用Java的话就是加个拦截器，PHP的话没做过这个，友人提供的思路用nginx实现。<br>
+用nginx做匹配拦截，然后转发到对应的php方法，将之后的xxxxx.xls 当作参数传，如下：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">location  ~ <span class="regexp">/upload/</span> &#123;</span><br><span class="line">      rewrite  ^<span class="regexp">/upload/</span>(.*)$  <span class="regexp">/index.php/</span>Filter<span class="regexp">/get_img?path=/</span><span class="variable">$1</span>  last;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时在 PHP做处理即可。<br>
+记录下～</p>
 
       
     </div>
@@ -278,7 +345,10 @@
     </header>
     <div class="entry">
       
-        <p>Java 最烦的的几点就是安装麻烦，配置麻烦，运行麻烦。<br>其中每一点只要遇到问题就进行不下去。<br>这点相比PHP真的差远了，只要安装一个XMAPP,一条龙服务到位，而且文件不用编译，不用重启，既改既生效。<br>工作这几年下来，与前端的分工总不是那么理想，前前后后尝试了好几种方式，都是不怎么太理想，最近所在的公司是让前端安装了一模一样的开发环境，Eclipse！，然后所有的环境Java人员帮配好，但是一旦有修改文件，而又不是Eclipse里面修改（现在前端习惯使用 sublime text ），就不会自动同步对应的容器中，要回到Eclipse中刷新才生效，繁琐的多余的流程，让前端也很不爽。<br>
+        <p>Java 最烦的的几点就是安装麻烦，配置麻烦，运行麻烦。<br>
+其中每一点只要遇到问题就进行不下去。<br>
+这点相比PHP真的差远了，只要安装一个XMAPP,一条龙服务到位，而且文件不用编译，不用重启，既改既生效。<br>
+工作这几年下来，与前端的分工总不是那么理想，前前后后尝试了好几种方式，都是不怎么太理想，最近所在的公司是让前端安装了一模一样的开发环境，Eclipse！，然后所有的环境Java人员帮配好，但是一旦有修改文件，而又不是Eclipse里面修改（现在前端习惯使用 sublime text ），就不会自动同步对应的容器中，要回到Eclipse中刷新才生效，繁琐的多余的流程，让前端也很不爽。</p>
       
     </div>
     <footer>
@@ -323,8 +393,13 @@
     </header>
     <div class="entry">
       
-        <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a><strong>问题</strong></h2><p>因项目需求，需要将 amr 格式的文件转成 mp3格式。<br>网络上提供的思路大多是使用jave-x-x.jar。<br>这个包确实有用，因为开发时是在windows环境中，测试转换虽然报了异常：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">it<span class="selector-class">.sauronsoftware</span><span class="selector-class">.jave</span><span class="selector-class">.EncoderException</span>:   Duration: N/A, bitrate: N/A</span><br></pre></td></tr></table></figure></p>
-<p>但也确实转换成功了，可以播放。<br>可是一旦部署到Linux环境当中，不是转换失败，就是转换的文件为大小 0 k。百思不得其解。 </p>
+        <h2 id="问题"><a class="markdownIt-Anchor" href="#问题"></a> <strong>问题</strong></h2>
+<p>因项目需求，需要将 amr 格式的文件转成 mp3格式。<br>
+网络上提供的思路大多是使用jave-x-x.jar。<br>
+这个包确实有用，因为开发时是在windows环境中，测试转换虽然报了异常：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">it<span class="selector-class">.sauronsoftware</span><span class="selector-class">.jave</span><span class="selector-class">.EncoderException</span>:   Duration: N/A, bitrate: N/A</span><br></pre></td></tr></table></figure>
+<p>但也确实转换成功了，可以播放。<br>
+可是一旦部署到Linux环境当中，不是转换失败，就是转换的文件为大小 0 k。百思不得其解。</p>
       
     </div>
     <footer>
@@ -374,10 +449,13 @@
 	
 	<!-- /Table of Contents -->
 
-        <p>  今天去某点公司面试，受了点打击，自以为知识面很广，方方面面的都接触过一些，结果在面试的时候，一些简单的概念都说不清楚。比如:Nginx你说快，为什么快？Nginx和Apache之间有异同点？ Tomcat的通讯模型？Hibernate优缺点在哪？</p>
+        <p>今天去某点公司面试，受了点打击，自以为知识面很广，方方面面的都接触过一些，结果在面试的时候，一些简单的概念都说不清楚。比如:Nginx你说快，为什么快？Nginx和Apache之间有异同点？ Tomcat的通讯模型？Hibernate优缺点在哪？</p>
 <p>每个工具、软件和框架，不管是开源闭源都好，它们总会因为某些原因或理念才会被设计出来，这些是他们的核心。</p>
 <blockquote>
-<p>1、<strong>他们为了解决什么问题？</strong><br>2、<strong>同类中有相同的产品吗？</strong><br>3、<strong>如果有,他们的侧重点有什么不同？</strong><br>4、<strong>你知道他们的原理吗？</strong>.</p>
+<p>1、<strong>他们为了解决什么问题？</strong><br>
+2、<strong>同类中有相同的产品吗？</strong><br>
+3、<strong>如果有,他们的侧重点有什么不同？</strong><br>
+4、<strong>你知道他们的原理吗？</strong>.</p>
 </blockquote>
 <p>我们可以不知道代码具体是怎么实现的，但上面提到的每个问题，包括原理，你都自问一遍，你有去关注过吗？ 我们为了用而用，用到最后，你知道为什么要用吗？因为大家都用吗？</p>
 <p>被打击也同样学习到很多。面试也是检验自身的一种方式，虽然有的公司面试官很坑，但不妨碍我们寻找找好的公司，好的面试官啊。</p>
@@ -423,9 +501,18 @@
     </header>
     <div class="entry">
       
-        <h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>上一篇<a href="http://www.linjie.org/2015/06/15/Tomcat-%E5%A4%9A%E5%AE%9E%E4%BE%8B%E9%83%A8%E7%BD%B2%E8%84%9A%E6%9C%AC/" title="googe" target="_blank" rel="noopener">Tomcat 多实例部署脚本</a> 大概说了些多实例的一些方案，现在这篇就纯粹的说自动化脚本。<br>轻拍。</p>
-<h4 id="思路-基于上篇博文的基础-："><a href="#思路-基于上篇博文的基础-：" class="headerlink" title="思路(基于上篇博文的基础)："></a>思路(基于上篇博文的基础)：</h4><blockquote>
-<p>0、建立一个新目录, <strong>mkdir default_template</strong><br>1、在Tomcat中的将所需的配置文件取出来，放到这个新目录中<br>2、修改 server.xml 文件，将所有所需手工替换的用<code>占用符</code>占用<br>3、在conf 目录中，建立一个<code>./conf/Catalina/localhost/ROOT.xml</code> 文件（<code>注1</code> 说明为什么建立这个文件）<br>4、在default_template目录中建立：<code>logs</code>,<code>temp</code>,<code>work</code> 等三个为目录<br>5、在目录中建立启动和停止实例的脚本，参考上篇博文，(见<code>注2</code>)<br>6、使用脚本，替换此目录中所有的<code>占位符</code>，替代手工操作</p>
+        <h3 id="思路"><a class="markdownIt-Anchor" href="#思路"></a> 思路</h3>
+<p>上一篇<a href="http://www.linjie.org/2015/06/15/Tomcat-%E5%A4%9A%E5%AE%9E%E4%BE%8B%E9%83%A8%E7%BD%B2%E8%84%9A%E6%9C%AC/" title="googe" target="_blank" rel="noopener">Tomcat 多实例部署脚本</a> 大概说了些多实例的一些方案，现在这篇就纯粹的说自动化脚本。<br>
+轻拍。</p>
+<h4 id="思路基于上篇博文的基础"><a class="markdownIt-Anchor" href="#思路基于上篇博文的基础"></a> 思路(基于上篇博文的基础)：</h4>
+<blockquote>
+<p>0、建立一个新目录, <strong>mkdir default_template</strong><br>
+1、在Tomcat中的将所需的配置文件取出来，放到这个新目录中<br>
+2、修改 server.xml 文件，将所有所需手工替换的用<code>占用符</code>占用<br>
+3、在conf 目录中，建立一个<code>./conf/Catalina/localhost/ROOT.xml</code> 文件（<code>注1</code> 说明为什么建立这个文件）<br>
+4、在default_template目录中建立：<code>logs</code>,<code>temp</code>,<code>work</code> 等三个为目录<br>
+5、在目录中建立启动和停止实例的脚本，参考上篇博文，(见<code>注2</code>)<br>
+6、使用脚本，替换此目录中所有的<code>占位符</code>，替代手工操作</p>
 </blockquote>
 <p><strong>注1：Tomcat中，如果要使用域名的根目录访问，需要将项目文件放在ROOT目录中，否则只能采用二级目录访问，而建立此<code>ROOT.xml</code> 文件，则可以任意指定，此文件中仅一句：<code>&lt;Context path=&quot;&quot; docBase=&quot;webapps_dir&quot; /&gt;</code>,其中path若为空，则默认为根目录没，具体可以下载此文件查看。 当然，还有其他的方式，只不过个人认为这种比较灵活</strong></p>
 <p><strong>注2：或者直接下载此文最下面提供的示例</strong></p>
@@ -473,15 +560,21 @@
     </header>
     <div class="entry">
       
-        <h3 id="单实例部署的麻烦"><a href="#单实例部署的麻烦" class="headerlink" title="单实例部署的麻烦"></a>单实例部署的麻烦</h3><blockquote>
+        <h3 id="单实例部署的麻烦"><a class="markdownIt-Anchor" href="#单实例部署的麻烦"></a> 单实例部署的麻烦</h3>
+<blockquote>
 <p>掀桌！单实例部署，TMD的每次重启所有项目都被影响！！</p>
 </blockquote>
 <p>单实例部署时，不管是直接放在webapps下，还是增加配置文件<code>./conf/server.xml</code> 中的<code>&lt;host&gt;</code> ，关闭和启动都是所有项目都受到影响 ，特别一些启动时间比较长的项目，等待很艹蛋，更特别的在于如果没有热部署或者热部署失败时，修改一个class或配置文件，重启的效率能让你掀桌！！</p>
-<h3 id="多实例的几种方式"><a href="#多实例的几种方式" class="headerlink" title="多实例的几种方式"></a>多实例的几种方式</h3><blockquote>
-<p>1.多Tomcat软件实例<br>2.增加 CATALINA_BASE<br>3.其他的先略过不表</p>
+<h3 id="多实例的几种方式"><a class="markdownIt-Anchor" href="#多实例的几种方式"></a> 多实例的几种方式</h3>
+<blockquote>
+<p>1.多Tomcat软件实例<br>
+2.增加 CATALINA_BASE<br>
+3.其他的先略过不表</p>
 </blockquote>
 <p>Y,多实例不可避免，多实例的两种方式上面说了。</p>
-<h4 id="1-最简单就是多Tomcat，"><a href="#1-最简单就是多Tomcat，" class="headerlink" title="1.最简单就是多Tomcat，"></a>1.最简单就是多Tomcat，</h4><p><strong>部署时拷贝一个Tomcat，然后修改端口。</strong><br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 用来停止Tomcat的端口(8005),需改 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Server</span> <span class="attr">port</span>=<span class="string">"8005"</span> <span class="attr">shutdown</span>=<span class="string">"SHUTDOWN"</span>&gt;</span></span><br><span class="line">...</span><br><span class="line">	<span class="comment">&lt;!-- Http 访问端口(8080)，续改 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"8080"</span> <span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">connectionTimeout</span>=<span class="string">"20000"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">redirectPort</span>=<span class="string">"8443"</span> /&gt;</span></span><br><span class="line">	....</span><br><span class="line">     <span class="comment">&lt;!-- Ajp端口(8009) ，负责和其他的HTTP服务器建立连接。没用到就注释掉。 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"8009"</span> <span class="attr">protocol</span>=<span class="string">"AJP/1.3"</span> <span class="attr">redirectPort</span>=<span class="string">"8443"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Server</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="1最简单就是多tomcat"><a class="markdownIt-Anchor" href="#1最简单就是多tomcat"></a> 1.最简单就是多Tomcat，</h4>
+<p><strong>部署时拷贝一个Tomcat，然后修改端口。</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 用来停止Tomcat的端口(8005),需改 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Server</span> <span class="attr">port</span>=<span class="string">"8005"</span> <span class="attr">shutdown</span>=<span class="string">"SHUTDOWN"</span>&gt;</span></span><br><span class="line">...</span><br><span class="line">	<span class="comment">&lt;!-- Http 访问端口(8080)，续改 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"8080"</span> <span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">connectionTimeout</span>=<span class="string">"20000"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">redirectPort</span>=<span class="string">"8443"</span> /&gt;</span></span><br><span class="line">	....</span><br><span class="line">     <span class="comment">&lt;!-- Ajp端口(8009) ，负责和其他的HTTP服务器建立连接。没用到就注释掉。 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"8009"</span> <span class="attr">protocol</span>=<span class="string">"AJP/1.3"</span> <span class="attr">redirectPort</span>=<span class="string">"8443"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Server</span>&gt;</span></span><br></pre></td></tr></table></figure>
       
     </div>
     <footer>
@@ -489,51 +582,6 @@
         
           <div class="alignleft">
             <a href="/2015/06/15/Tomcat-多实例部署脚本/#more" class="more-link">Read More  |  详情</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  <script>
-    
-    </script>
-
-
-
-
-
-  
-    <article class="post">
-  
-  <div class="post-content">
-    <header>
-        
-  
-    <h1 class="title"><a href="/2015/01/02/old-blog/">那些年一起写过的博客</a></h1>
-  
-
-      
-        <div style="margin-top: 10px;" >
-            <time datetime="2015-01-02T12:34:10.000Z">发表于 2015-01-02</time>
-        </div>
-      
-  
-    </header>
-    <div class="entry">
-      
-        <p>因为域名过期忘记续费，然后就没有然后了。<br>服务器的资料备份的零零散散的，之后域名又被我重新买了回来，幸运！<br>但是资料基本都丢失了。<br>今天查自己域名的时候，突然发现一个网站居然还有我域名的历史快照。<br>感动！虽然只有两张。<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2015/01/02/old-blog/#more" class="more-link">Read More  |  详情</a>
           </div>
         
         
@@ -568,6 +616,8 @@
   <h3 class="title">分类</h3>
   <ul class="entry">
   
+    <li><a href="/categories/Java/">Java</a><small>1</small></li>
+  
     <li><a href="/categories/Maven/">Maven</a><small>1</small></li>
   
     <li><a href="/categories/Tomcat/">Tomcat</a><small>2</small></li>
@@ -586,7 +636,7 @@
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/PHP-interceptor/" style="font-size: 10px;">PHP interceptor</a> <a href="/tags/Tomcat/" style="font-size: 20px;">Tomcat</a> <a href="/tags/amr转mp3/" style="font-size: 10px;">amr转mp3</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jave/" style="font-size: 10px;">jave</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/sonatype/" style="font-size: 10px;">sonatype</a> <a href="/tags/sonatype-nexus-3/" style="font-size: 10px;">sonatype-nexus-3</a> <a href="/tags/wiz/" style="font-size: 10px;">wiz</a> <a href="/tags/协作开发/" style="font-size: 10px;">协作开发</a> <a href="/tags/团队建设/" style="font-size: 10px;">团队建设</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/然并卵系列/" style="font-size: 10px;">然并卵系列</a>
+    <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/PHP-interceptor/" style="font-size: 10px;">PHP interceptor</a> <a href="/tags/Tomcat/" style="font-size: 15px;">Tomcat</a> <a href="/tags/amr转mp3/" style="font-size: 10px;">amr转mp3</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jave/" style="font-size: 10px;">jave</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/sonatype/" style="font-size: 10px;">sonatype</a> <a href="/tags/sonatype-nexus-3/" style="font-size: 10px;">sonatype-nexus-3</a> <a href="/tags/wiz/" style="font-size: 10px;">wiz</a> <a href="/tags/协作开发/" style="font-size: 10px;">协作开发</a> <a href="/tags/团队建设/" style="font-size: 10px;">团队建设</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a> <a href="/tags/然并卵系列/" style="font-size: 10px;">然并卵系列</a>
   </div>
 </div>
 
@@ -595,6 +645,10 @@
 <div class="widget tag">
   <h3 class="title">最新文章</h3>
   <ul class="entry">
+    
+      <li>
+        <a href="/2018/04/08/Teamcity install and build /">Teamcity 安装部署和项目构建 初探</a>
+      </li>
     
       <li>
         <a href="/2018/02/03/test/test/">测试</a>
@@ -610,10 +664,6 @@
     
       <li>
         <a href="/2016/04/22/php-interceptor/">php 用nginx实现拦截器的思路</a>
-      </li>
-    
-      <li>
-        <a href="/2015/11/29/java-web-front-end-engineer-cooperation/">有感而发 , 前端该如何与Java服务端配合开发</a>
       </li>
     
   </ul>

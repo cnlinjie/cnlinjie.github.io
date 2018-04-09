@@ -6,7 +6,12 @@
   <title>php 用nginx实现拦截器的思路 | 林杰</title>
   <meta name="author" content="林杰">
   
-  <meta name="description" content="首先感谢一老友提供的思路。接着～，PHP现有项目上发现一个问题，上传到项目的文件随意用了随机字符串，但只有登陆用户把这个地址发出去，其他人就可以直接访问或下载该文件。比如：http://wwww.test.com/upload/xxxxx.xls可以直接下载下来，因为是直接存在的文件。此时要做限制，">
+  <meta name="description" content="首先感谢一老友提供的思路。
+接着～，
+PHP现有项目上发现一个问题，上传到项目的文件随意用了随机字符串，但只有登陆用户把这个地址发出去，其他人就可以直接访问或下载该文件。
+比如：http://wwww.test.com/upload/xxxxx.xls
+可以直接下载下来，因为是直接存在的文件。
+此时">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -80,8 +85,16 @@
 	
 	<!-- /Table of Contents -->
 
-        <p>首先感谢一老友提供的思路。<br>接着～，<br>PHP现有项目上发现一个问题，上传到项目的文件随意用了随机字符串，但只有登陆用户把这个地址发出去，其他人就可以直接访问或下载该文件。<br>比如：<a href="http://wwww.test.com/upload/xxxxx.xls" target="_blank" rel="noopener">http://wwww.test.com/upload/xxxxx.xls</a><br>可以直接下载下来，因为是直接存在的文件。<br>此时要做限制，思路就是拦截下 /upload/ 这个路径，用Java的话就是加个拦截器，PHP的话没做过这个，友人提供的思路用nginx实现。<br>用nginx做匹配拦截，然后转发到对应的php方法，将之后的xxxxx.xls 当作参数传，如下：<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">location  ~ <span class="regexp">/upload/</span> &#123;</span><br><span class="line">      rewrite  ^<span class="regexp">/upload/</span>(.*)$  <span class="regexp">/index.php/</span>Filter<span class="regexp">/get_img?path=/</span><span class="variable">$1</span>  last;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>此时在 PHP做处理即可。<br>记录下～</p>
+        <p>首先感谢一老友提供的思路。<br>
+接着～，<br>
+PHP现有项目上发现一个问题，上传到项目的文件随意用了随机字符串，但只有登陆用户把这个地址发出去，其他人就可以直接访问或下载该文件。<br>
+比如：<a href="http://wwww.test.com/upload/xxxxx.xls" target="_blank" rel="noopener">http://wwww.test.com/upload/xxxxx.xls</a><br>
+可以直接下载下来，因为是直接存在的文件。<br>
+此时要做限制，思路就是拦截下 /upload/ 这个路径，用Java的话就是加个拦截器，PHP的话没做过这个，友人提供的思路用nginx实现。<br>
+用nginx做匹配拦截，然后转发到对应的php方法，将之后的xxxxx.xls 当作参数传，如下：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">location  ~ <span class="regexp">/upload/</span> &#123;</span><br><span class="line">      rewrite  ^<span class="regexp">/upload/</span>(.*)$  <span class="regexp">/index.php/</span>Filter<span class="regexp">/get_img?path=/</span><span class="variable">$1</span>  last;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时在 PHP做处理即可。<br>
+记录下～</p>
 
       
     </div>
