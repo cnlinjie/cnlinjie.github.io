@@ -74,7 +74,7 @@ cd ~/nexus-3.0.0-03/bin/
 1. 在 .bashrc 中加入
 
     ```
-    NEXUS_HOME="/opt/nexus"
+    NEXUS_HOME="/home/nexus/nexus-3.0.0-03"
     ```
     
 2. 修改 `~/nexus-3.0.0-03/bin/nexus.rc`
