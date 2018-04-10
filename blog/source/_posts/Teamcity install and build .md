@@ -1,8 +1,8 @@
 title: 'Teamcity 安装部署和项目构建 初探'
 date: 2018-04-08 10:14:30
-category: Java
+category: java
 tags: 
-- Java
+- java
 - CI
 
 ---
@@ -146,13 +146,72 @@ Build Queue: 构建队列。
 
 # 新建项目
 
+1. 创建新建
+
+![](http://7xkxil.com1.z0.glb.clouddn.com/15233737476375.jpg)
+
+
+
 
 ## 使用 git 
 
+根据不同的平台选择不同的方式，我私人项目用的比较多的是 开源中国的 gitee，所以填写如下
+ 
+ ![](http://7xkxil.com1.z0.glb.clouddn.com/15233739995789.jpg)
 
-## 配置自动化
+之后会跳到让构建步骤
+
+![](http://7xkxil.com1.z0.glb.clouddn.com/15233742450748.jpg)
+
+这里会检测出你项目自带的哪些可以执行的脚本，然后选择，我这边就不选了，等会儿还可以自定义。
+
+
+点击左边的 `Build Steps` .
 
 
 
+## 实现自动化
 
+当项目被检出之后，会自动触发这一步，所以在这边编辑后构建脚本就可以实现自动化。
+
+![](http://7xkxil.com1.z0.glb.clouddn.com/15233743614757.jpg)
+
+1. 自动添加构建脚本
+2. 自动检测项目中自带的脚本，如上一步看到的。
+
+这里选择 Add Build Step 
+
+![](http://7xkxil.com1.z0.glb.clouddn.com/15233745920326.jpg)
+
+这边有很多的选项，有Maven ，有命令行，有FTP（构建完成后可以将构建完成的软件包通过FTP上传等），我这边直接选择命令行。
+
+实现打包。
+
+![](http://7xkxil.com1.z0.glb.clouddn.com/15233749645812.jpg)
+
+
+这边步骤可以有很多，1，2，3，4 .... 
+
+![](http://7xkxil.com1.z0.glb.clouddn.com/15233750453223.jpg)
+ 
+
+
+配置完，回到项目， 
+![](http://7xkxil.com1.z0.glb.clouddn.com/15233751355056.jpg)
+
+，然后点击 run
+
+![](http://7xkxil.com1.z0.glb.clouddn.com/15233751704406.jpg)
+
+
+ 我这边因为使用 mvn 命令，所以在服务器上也必须配置好 mvn 环境，否则
+
+![](http://7xkxil.com1.z0.glb.clouddn.com/15233752477005.jpg)
+
+
+# 总结
+
+ Teamcity 主要检查各种源码管理 (git ,svn)  等，检出完成之后，再调用对应的构建步骤，具体如何构建全听命于你。
+ 
+ 
 
