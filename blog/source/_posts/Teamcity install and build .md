@@ -187,7 +187,8 @@ Build Queue: 构建队列。
 
 实现打包。
 
-![](http://7xkxil.com1.z0.glb.clouddn.com/15233749645812.jpg)
+![](http://7xkxil.com1.z0.glb.clouddn.com/15233781356816.jpg)
+
 
 
 这边步骤可以有很多，1，2，3，4 .... 
