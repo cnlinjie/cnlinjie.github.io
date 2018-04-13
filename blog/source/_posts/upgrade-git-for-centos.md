@@ -59,5 +59,3 @@ git version
 
 ![](http://7xkxil.com1.z0.glb.clouddn.com/2018-04-10-15233325844877.jpg)
 
-
-
