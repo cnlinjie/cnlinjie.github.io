@@ -80,7 +80,7 @@ Y,多实例不可避免，多实例的两种方式上面说了。
             <time datetime="2015-06-15T14:31:34.000Z">发表于 2015-06-15</time>
         </div>
       
-  
+
     </header>
     <div class="entry">
       
@@ -181,9 +181,6 @@ Y,多实例不可避免，多实例的两种方式上面说了。
 
 
 
-
-
-
                 
 <div class="prev_next clearfix">
   
@@ -193,6 +190,29 @@ Y,多实例不可避免，多实例的两种方式上面说了。
   <a href="/2015/01/02/old-blog/" class="next" title="那些年一起写过的博客">下一篇<span class="xs-hidden">：那些年一起写过的博客</span></a>
   
 </div>
+
+                
+
+<div id="comment">
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+</div>
+<script>
+    var gitment = new Gitment({
+        id: window.location.pathname,
+        title: 'Tomcat 多实例部署脚本',
+        owner: 'cnlinjie',
+        repo: 'cnlinjie.github.io',
+        oauth: {
+            client_id: '7ffc80f45cfe2730f641',
+            client_secret: 'be513e3ef3e9ef77f7cbc0e93c9fac6878844e04',
+        },
+    })
+    gitment.render('comment')
+</script>
+
+
+
 
         </div>
 </div>
