@@ -10,7 +10,8 @@ tags: wiz
 
 ## 下载WizNote 源码
 1. 打开官网应该都知道源码的地址放在哪，如果你会点git操作就更好了。
-    地址：*https://github.com/WizTeam/WizQTClient*
+    地址：
+    *https://github.com/WizTeam/WizQTClient*
 2. 下载回来解压，然后cd进目录，直接执行`./linux-package.sh ` 进行编译安装。
 3. OK，可以吗？反正我就是不行，报了一大堆问题，所以继续。
 

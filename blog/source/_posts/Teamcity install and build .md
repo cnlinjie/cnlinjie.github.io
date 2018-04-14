@@ -24,7 +24,8 @@ Teamcity 一些复杂的操作也还在摸索当中，一样还是要看文档�
 
 百科定义：TeamCity是一款功能强大的持续集成（Continue Integration）工具，包括服务器端和客户端，目前支持Java，.NET项目开发。
 
-文档地址：https://confluence.jetbrains.com/display/TCD10/TeamCity+Documentation
+文档地址：
+https://confluence.jetbrains.com/display/TCD10/TeamCity+Documentation
 
 ## 概念和生命周期
 
@@ -49,7 +50,8 @@ Teamcity 一些复杂的操作也还在摸索当中，一样还是要看文档�
 
 **Build Artifacts**：构建成品。
 
-对应的文档：https://confluence.jetbrains.com/display/TCD10/Continuous+Integration+with+TeamCity
+对应的文档：
+https://confluence.jetbrains.com/display/TCD10/Continuous+Integration+with+TeamCity
 
 ### 构建过程
 
@@ -65,9 +67,11 @@ Teamcity 一些复杂的操作也还在摸索当中，一样还是要看文档�
 
 ## 安装
 
-官方文档：https://confluence.jetbrains.com/display/TCD10/Installation+Quick+Start
+官方文档：
+https://confluence.jetbrains.com/display/TCD10/Installation+Quick+Start
 
-下载地址：https://www.jetbrains.com/zh/teamcity/download/
+下载地址：
+https://www.jetbrains.com/zh/teamcity/download/
 
 
 
