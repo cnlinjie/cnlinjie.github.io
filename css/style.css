@@ -15,6 +15,7 @@ body {
   font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
   font-size: 14px;
   text-shadow: 0 0 1px transparent;
+  word-wrap: break-word;
 }
 @media screen and (max-width: 1260px) {
   body {
@@ -24,6 +25,7 @@ body {
 @media screen and (max-width: 600px) {
   body {
     font-size: 13px;
+    margin: 0 5px;
   }
 }
 h1,
@@ -117,6 +119,11 @@ a:hover {
   font-size: 2.5em;
   line-height: 1;
 }
+@media screen and (max-width: 600px) {
+  #header h1 {
+    font-size: 2em;
+  }
+}
 #header h2 {
   font-weight: normal;
   font-size: 0.9em;
@@ -168,7 +175,8 @@ article .post-content {
 }
 @media screen and (max-width: 600px) {
   article .post-content {
-    padding-left: 20px;
+    padding: 15px 10px 10px 10px;
+    margin-bottom: 20px;
   }
 }
 article .gallery {
