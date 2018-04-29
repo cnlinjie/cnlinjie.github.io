@@ -10,7 +10,7 @@
             <time datetime="<%= item.date.toDate().toISOString() %>">发表于 <%= item.date.format(config.date_format) %></time>
         </div>
       <% } %>
-  
+
     </header>
     <div class="entry">
       <% if (item.excerpt && index){ %>
@@ -51,10 +51,4 @@
   </div>
 </article>
 
-<% if (index){ %>
-  <script>
-    
-    </script>
-<% } %>
 
-<%- partial('comment') %>
