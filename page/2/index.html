@@ -55,6 +55,58 @@
     <header>
         
   
+    <h1 class="title"><a href="/2015/06/15/Tomcat-deploy/">Tomcat 多实例部署脚本</a></h1>
+  
+
+      
+        <div style="margin-top: 10px;" >
+            <time datetime="2015-06-15T14:31:34.000Z">发表于 2015-06-15</time>
+        </div>
+      
+
+    </header>
+    <div class="entry">
+      
+        <h3 id="单实例部署的麻烦"><a class="markdownIt-Anchor" href="#单实例部署的麻烦"></a> 单实例部署的麻烦</h3>
+<blockquote>
+<p>掀桌！单实例部署，TMD的每次重启所有项目都被影响！！</p>
+</blockquote>
+<p>单实例部署时，不管是直接放在webapps下，还是增加配置文件<code>./conf/server.xml</code> 中的<code>&lt;host&gt;</code> ，关闭和启动都是所有项目都受到影响 ，特别一些启动时间比较长的项目，等待很艹蛋，更特别的在于如果没有热部署或者热部署失败时，修改一个class或配置文件，重启的效率能让你掀桌！！</p>
+<h3 id="多实例的几种方式"><a class="markdownIt-Anchor" href="#多实例的几种方式"></a> 多实例的几种方式</h3>
+<blockquote>
+<p>1.多Tomcat软件实例<br>
+2.增加 CATALINA_BASE<br>
+3.其他的先略过不表</p>
+</blockquote>
+<p>Y,多实例不可避免，多实例的两种方式上面说了。</p>
+<h4 id="1最简单就是多tomcat"><a class="markdownIt-Anchor" href="#1最简单就是多tomcat"></a> 1.最简单就是多Tomcat，</h4>
+<p><strong>部署时拷贝一个Tomcat，然后修改端口。</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 用来停止Tomcat的端口(8005),需改 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Server</span> <span class="attr">port</span>=<span class="string">"8005"</span> <span class="attr">shutdown</span>=<span class="string">"SHUTDOWN"</span>&gt;</span></span><br><span class="line">...</span><br><span class="line">	<span class="comment">&lt;!-- Http 访问端口(8080)，续改 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"8080"</span> <span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">connectionTimeout</span>=<span class="string">"20000"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">redirectPort</span>=<span class="string">"8443"</span> /&gt;</span></span><br><span class="line">	....</span><br><span class="line">     <span class="comment">&lt;!-- Ajp端口(8009) ，负责和其他的HTTP服务器建立连接。没用到就注释掉。 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"8009"</span> <span class="attr">protocol</span>=<span class="string">"AJP/1.3"</span> <span class="attr">redirectPort</span>=<span class="string">"8443"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Server</span>&gt;</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/06/15/Tomcat-deploy/#more" class="more-link">Read More  |  详情</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        
+  
     <h1 class="title"><a href="/2015/01/02/old-blog/">那些年一起写过的博客</a></h1>
   
 
@@ -167,7 +219,7 @@
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/PHP-interceptor/" style="font-size: 10px;">PHP interceptor</a> <a href="/tags/Tomcat/" style="font-size: 15px;">Tomcat</a> <a href="/tags/amr转mp3/" style="font-size: 10px;">amr转mp3</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jave/" style="font-size: 10px;">jave</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/sonatype/" style="font-size: 10px;">sonatype</a> <a href="/tags/sonatype-nexus-3/" style="font-size: 10px;">sonatype-nexus-3</a> <a href="/tags/wiz/" style="font-size: 10px;">wiz</a> <a href="/tags/协作开发/" style="font-size: 10px;">协作开发</a> <a href="/tags/团队建设/" style="font-size: 10px;">团队建设</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a>
+    <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/PHP-interceptor/" style="font-size: 10px;">PHP interceptor</a> <a href="/tags/Tomcat/" style="font-size: 15px;">Tomcat</a> <a href="/tags/amr转mp3/" style="font-size: 10px;">amr转mp3</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jave/" style="font-size: 10px;">jave</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/pyenv/" style="font-size: 10px;">pyenv</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/sonatype/" style="font-size: 10px;">sonatype</a> <a href="/tags/sonatype-nexus-3/" style="font-size: 10px;">sonatype-nexus-3</a> <a href="/tags/wiz/" style="font-size: 10px;">wiz</a> <a href="/tags/协作开发/" style="font-size: 10px;">协作开发</a> <a href="/tags/团队建设/" style="font-size: 10px;">团队建设</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a>
   </div>
 </div>
 
@@ -176,6 +228,10 @@
 <div class="widget tag">
   <h3 class="title">最新文章</h3>
   <ul class="entry">
+    
+      <li>
+        <a href="/2018/04/29/pyenv-multi-version/">pyenv 多版本管理 同时使用多个Python</a>
+      </li>
     
       <li>
         <a href="/2018/04/10/upgrade-git-for-centos/">Centos 升级 git </a>
@@ -191,10 +247,6 @@
     
       <li>
         <a href="/2016/08/25/compile-install-wiznote/">fedora23 编译 WizNote2.3.3</a>
-      </li>
-    
-      <li>
-        <a href="/2016/04/23/Sonatype-nexus-3-build-run/">团队建设-Maven 仓库 Sonatype Nexus 的搭建</a>
       </li>
     
   </ul>
