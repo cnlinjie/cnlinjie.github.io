@@ -55,6 +55,58 @@
     <header>
         
   
+    <h1 class="title"><a href="/2015/06/20/Tomcat-deploy-2/">Tomcat 多实例部署脚本-下</a></h1>
+  
+
+      
+        <div style="margin-top: 10px;" >
+            <time datetime="2015-06-20T10:31:34.000Z">发表于 2015-06-20</time>
+        </div>
+      
+
+    </header>
+    <div class="entry">
+      
+        <h3 id="思路"><a class="markdownIt-Anchor" href="#思路"></a> 思路</h3>
+<p>上一篇<a href="http://www.linjie.org/2015/06/15/Tomcat-%E5%A4%9A%E5%AE%9E%E4%BE%8B%E9%83%A8%E7%BD%B2%E8%84%9A%E6%9C%AC/" title="googe" target="_blank" rel="noopener">Tomcat 多实例部署脚本</a> 大概说了些多实例的一些方案，现在这篇就纯粹的说自动化脚本。<br>
+轻拍。</p>
+<h4 id="思路基于上篇博文的基础"><a class="markdownIt-Anchor" href="#思路基于上篇博文的基础"></a> 思路(基于上篇博文的基础)：</h4>
+<blockquote>
+<p>0、建立一个新目录, <strong>mkdir default_template</strong><br>
+1、在Tomcat中的将所需的配置文件取出来，放到这个新目录中<br>
+2、修改 server.xml 文件，将所有所需手工替换的用<code>占用符</code>占用<br>
+3、在conf 目录中，建立一个<code>./conf/Catalina/localhost/ROOT.xml</code> 文件（<code>注1</code> 说明为什么建立这个文件）<br>
+4、在default_template目录中建立：<code>logs</code>,<code>temp</code>,<code>work</code> 等三个为目录<br>
+5、在目录中建立启动和停止实例的脚本，参考上篇博文，(见<code>注2</code>)<br>
+6、使用脚本，替换此目录中所有的<code>占位符</code>，替代手工操作</p>
+</blockquote>
+<p><strong>注1：Tomcat中，如果要使用域名的根目录访问，需要将项目文件放在ROOT目录中，否则只能采用二级目录访问，而建立此<code>ROOT.xml</code> 文件，则可以任意指定，此文件中仅一句：<code>&lt;Context path=&quot;&quot; docBase=&quot;webapps_dir&quot; /&gt;</code>,其中path若为空，则默认为根目录没，具体可以下载此文件查看。 当然，还有其他的方式，只不过个人认为这种比较灵活</strong></p>
+<p><strong>注2：或者直接下载此文最下面提供的示例</strong></p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2015/06/20/Tomcat-deploy-2/#more" class="more-link">Read More  |  详情</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+  
+    <article class="post">
+  
+  <div class="post-content">
+    <header>
+        
+  
     <h1 class="title"><a href="/2015/06/15/Tomcat-deploy/">Tomcat 多实例部署脚本</a></h1>
   
 
@@ -219,7 +271,7 @@
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/PHP-interceptor/" style="font-size: 10px;">PHP interceptor</a> <a href="/tags/Tomcat/" style="font-size: 15px;">Tomcat</a> <a href="/tags/amr转mp3/" style="font-size: 10px;">amr转mp3</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jave/" style="font-size: 10px;">jave</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/pyenv/" style="font-size: 10px;">pyenv</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/sonatype/" style="font-size: 10px;">sonatype</a> <a href="/tags/sonatype-nexus-3/" style="font-size: 10px;">sonatype-nexus-3</a> <a href="/tags/wiz/" style="font-size: 10px;">wiz</a> <a href="/tags/协作开发/" style="font-size: 10px;">协作开发</a> <a href="/tags/团队建设/" style="font-size: 10px;">团队建设</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a>
+    <a href="/tags/CI/" style="font-size: 10px;">CI</a> <a href="/tags/Java/" style="font-size: 15px;">Java</a> <a href="/tags/PHP/" style="font-size: 10px;">PHP</a> <a href="/tags/PHP-interceptor/" style="font-size: 10px;">PHP interceptor</a> <a href="/tags/Tomcat/" style="font-size: 15px;">Tomcat</a> <a href="/tags/amr转mp3/" style="font-size: 10px;">amr转mp3</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jave/" style="font-size: 10px;">jave</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/pyenv/" style="font-size: 10px;">pyenv</a> <a href="/tags/python/" style="font-size: 15px;">python</a> <a href="/tags/sonatype/" style="font-size: 10px;">sonatype</a> <a href="/tags/sonatype-nexus-3/" style="font-size: 10px;">sonatype-nexus-3</a> <a href="/tags/wiz/" style="font-size: 10px;">wiz</a> <a href="/tags/协作开发/" style="font-size: 10px;">协作开发</a> <a href="/tags/团队建设/" style="font-size: 10px;">团队建设</a> <a href="/tags/测试/" style="font-size: 10px;">测试</a>
   </div>
 </div>
 
@@ -228,6 +280,10 @@
 <div class="widget tag">
   <h3 class="title">最新文章</h3>
   <ul class="entry">
+    
+      <li>
+        <a href="/2018/05/21/Centos-Chrome-Chromdriver-python-Xvfb/">Centos Chrome Chromdriver python Xvfb 无界面模式</a>
+      </li>
     
       <li>
         <a href="/2018/04/29/pyenv-multi-version/">pyenv 多版本管理 同时使用多个Python</a>
@@ -243,10 +299,6 @@
     
       <li>
         <a href="/2018/02/03/test/test/">测试</a>
-      </li>
-    
-      <li>
-        <a href="/2016/08/25/compile-install-wiznote/">fedora23 编译 WizNote2.3.3</a>
       </li>
     
   </ul>
