@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>php 用nginx实现拦截器的思路 | 林杰</title>
+  <meta name="author" content="林杰">
+  
+  <meta name="description" content="首先感谢一老友提供的思路。
+接着～，
+PHP现有项目上发现一个问题，上传到项目的文件随意用了随机字符串，但只有登陆用户把这个地址发出去，其他人就可以直接访问或下载该文件。
+比如：http://wwww.test.com/upload/xxxxx.xls
+可以直接下载下来，因为是直接存在的文件。
+此时">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="php 用nginx实现拦截器的思路">
+  <meta property="og:site_name" content="林杰">
+
+  
+    <meta property="og:image" content="undefined">
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="林杰" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+</html>
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">林杰</a></h1>
+  <h2><a href="/">一切又回到原地。</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+      <li><a href="/books">书单</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    
+
+<div id="main-col" class="alignleft">
+        <div id="wrapper" >
+                <article class="post">
+  
+  <div class="post-content">
+    <header>
+        
+  
+    <h1 class="title">php 用nginx实现拦截器的思路</h1>
+  
+
+      
+        <div style="margin-top: 10px;" >
+            <time datetime="2016-04-22T14:46:22.000Z">发表于 2016-04-22</time>
+        </div>
+      
+
+    </header>
+    <div class="entry">
+      
+
+	<!-- Table of Contents -->
+	
+  		<div id="toc" class="toc-article">
+  		<h1>TOC</h1>
+  		
+  		</div>
+	
+	<!-- /Table of Contents -->
+
+        <p>首先感谢一老友提供的思路。<br>
+接着～，<br>
+PHP现有项目上发现一个问题，上传到项目的文件随意用了随机字符串，但只有登陆用户把这个地址发出去，其他人就可以直接访问或下载该文件。<br>
+比如：<a href="http://wwww.test.com/upload/xxxxx.xls" target="_blank" rel="noopener">http://wwww.test.com/upload/xxxxx.xls</a><br>
+可以直接下载下来，因为是直接存在的文件。<br>
+此时要做限制，思路就是拦截下 /upload/ 这个路径，用Java的话就是加个拦截器，PHP的话没做过这个，友人提供的思路用nginx实现。<br>
+用nginx做匹配拦截，然后转发到对应的php方法，将之后的xxxxx.xls 当作参数传，如下：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">location  ~ <span class="regexp">/upload/</span> &#123;</span><br><span class="line">      rewrite  ^<span class="regexp">/upload/</span>(.*)$  <span class="regexp">/index.php/</span>Filter<span class="regexp">/get_img?path=/</span><span class="variable">$1</span>  last;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时在 PHP做处理即可。<br>
+记录下～</p>
+
+      
+    </div>
+    <footer>
+      
+         
+  
+  <div class="categories">
+    <a href="/categories/php/">php</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/PHP/">PHP</a>, <a href="/tags/PHP-interceptor/">PHP interceptor</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+                
+<div class="prev_next clearfix">
+  
+  <a href="/2016/04/23/Sonatype-nexus-3-build-run/" class="prev" title="团队建设-Maven 仓库 Sonatype Nexus 的搭建">上一篇<span class="xs-hidden">：团队建设-Maven 仓库 Sonatype Nexus 的搭建</span></a>
+  
+  
+  <a href="/2015/11/29/java-web-front-end-engineer-cooperation/" class="next" title="有感而发 , 前端该如何与Java服务端配合开发">下一篇<span class="xs-hidden">：有感而发 , 前端该如何与Java服务端配合开发</span></a>
+  
+</div>
+
+                
+
+<div id="comment">
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+</div>
+<script>
+    var gitment = new Gitment({
+        id: window.location.pathname,
+        title: 'php 用nginx实现拦截器的思路',
+        owner: 'cnlinjie',
+        repo: 'cnlinjie.github.io',
+        oauth: {
+            client_id: '7ffc80f45cfe2730f641',
+            client_secret: 'be513e3ef3e9ef77f7cbc0e93c9fac6878844e04',
+        },
+    })
+    gitment.render('comment')
+</script>
+
+
+
+
+        </div>
+</div>
+<aside id="sidebar" class="alignright">
+    
+  <div class="widget widget-toc" style="display: none">
+  <h3 class="title">文章目录</h3>
+  <div class="container" style="padding: 15px 20px;">
+  </div>
+</div>
+<script src="/js/toc.js"></script>
+
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft" style="margin-top: 20px;">
+  
+  &copy; 2022 林杰
+  
+   |  &nbsp; Proudly powered by Hexo  &nbsp;&nbsp;&nbsp;
+</div>
+
+<!-- cnzz -->
+
+<div style="padding-left:100px; display: none;" >
+
+<script src="http://s5.cnzz.com/stat.php?id=3903372&web_id=3903372" language="JavaScript"></script>
+
+</div>
+
+
+<div class="clearfix"></div>
+</footer>
+  <script src="//lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>

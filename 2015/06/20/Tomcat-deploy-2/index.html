@@ -1,0 +1,238 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Tomcat 多实例部署脚本-下 | 林杰</title>
+  <meta name="author" content="林杰">
+  
+  <meta name="description" content="思路
+上一篇Tomcat 多实例部署脚本 大概说了些多实例的一些方案，现在这篇就纯粹的说自动化脚本。
+轻拍。
+ 思路(基于上篇博文的基础)：
+
+0、建立一个新目录, mkdir default_template
+1、在Tomcat中的将所需的配置文件取出来，放到这个新目录中
+2、修改 server.xml 文件，将所有所需手工替换的用占用符占用
+3、在conf 目录中，建立一个./conf/Catalina/localhost/ROOT.xml 文件（注1 说明为什么建立这个文件）
+4、在default_template目录中建立：logs,temp,work 等三个为目录
+5、在目录中建立启动和停止实例的脚本，参考上篇博文，(见注2)
+6、使用脚本，替换此目录中所有的占位符，替代手工操作
+
+注1：Tomcat中，如果要使用域名的根目录访问，需要将项目文件放在ROOT目录中，否则只能采用二级目录访问，而建立此ROOT.xml 文件，则可以任意指定，此文件中仅一句：&amp;lt;Context path=&amp;quot;&amp;quot; docBase=&amp;quot;webapps_dir&amp;quot; /&amp;gt;,其中path若为空，则默认为根目录没，具体可以下载此文件查看。 当然，还有其他的方式，只不过个人认为这种比较灵活
+注2：或者直接下载此文最下面提供的示例">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Tomcat 多实例部署脚本-下">
+  <meta property="og:site_name" content="林杰">
+
+  
+    <meta property="og:image" content="undefined">
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="林杰" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+</html>
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">林杰</a></h1>
+  <h2><a href="/">一切又回到原地。</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+      <li><a href="/books">书单</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    
+
+<div id="main-col" class="alignleft">
+        <div id="wrapper" >
+                <article class="post">
+  
+  <div class="post-content">
+    <header>
+        
+  
+    <h1 class="title">Tomcat 多实例部署脚本-下</h1>
+  
+
+      
+        <div style="margin-top: 10px;" >
+            <time datetime="2015-06-20T10:31:34.000Z">发表于 2015-06-20</time>
+        </div>
+      
+
+    </header>
+    <div class="entry">
+      
+
+	<!-- Table of Contents -->
+	
+  		<div id="toc" class="toc-article">
+  		<h1>TOC</h1>
+  		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#思路"><span class="toc-number">1.</span> <span class="toc-text"> 思路</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#思路基于上篇博文的基础"><span class="toc-number">1.1.</span> <span class="toc-text"> 思路(基于上篇博文的基础)：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#脚本实现"><span class="toc-number">2.</span> <span class="toc-text"> 脚本实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现结果截图"><span class="toc-number">3.</span> <span class="toc-text"> 实现结果截图</span></a></li></ol>
+  		</div>
+	
+	<!-- /Table of Contents -->
+
+        <h3 id="思路"><a class="markdownIt-Anchor" href="#思路"></a> 思路</h3>
+<p>上一篇<a href="http://www.linjie.org/2015/06/15/Tomcat-%E5%A4%9A%E5%AE%9E%E4%BE%8B%E9%83%A8%E7%BD%B2%E8%84%9A%E6%9C%AC/" title="googe" target="_blank" rel="noopener">Tomcat 多实例部署脚本</a> 大概说了些多实例的一些方案，现在这篇就纯粹的说自动化脚本。<br>
+轻拍。</p>
+<h4 id="思路基于上篇博文的基础"><a class="markdownIt-Anchor" href="#思路基于上篇博文的基础"></a> 思路(基于上篇博文的基础)：</h4>
+<blockquote>
+<p>0、建立一个新目录, <strong>mkdir default_template</strong><br>
+1、在Tomcat中的将所需的配置文件取出来，放到这个新目录中<br>
+2、修改 server.xml 文件，将所有所需手工替换的用<code>占用符</code>占用<br>
+3、在conf 目录中，建立一个<code>./conf/Catalina/localhost/ROOT.xml</code> 文件（<code>注1</code> 说明为什么建立这个文件）<br>
+4、在default_template目录中建立：<code>logs</code>,<code>temp</code>,<code>work</code> 等三个为目录<br>
+5、在目录中建立启动和停止实例的脚本，参考上篇博文，(见<code>注2</code>)<br>
+6、使用脚本，替换此目录中所有的<code>占位符</code>，替代手工操作</p>
+</blockquote>
+<p><strong>注1：Tomcat中，如果要使用域名的根目录访问，需要将项目文件放在ROOT目录中，否则只能采用二级目录访问，而建立此<code>ROOT.xml</code> 文件，则可以任意指定，此文件中仅一句：<code>&lt;Context path=&quot;&quot; docBase=&quot;webapps_dir&quot; /&gt;</code>,其中path若为空，则默认为根目录没，具体可以下载此文件查看。 当然，还有其他的方式，只不过个人认为这种比较灵活</strong></p>
+<p><strong>注2：或者直接下载此文最下面提供的示例</strong></p>
+<a id="more"></a>
+<h3 id="脚本实现"><a class="markdownIt-Anchor" href="#脚本实现"></a> 脚本实现</h3>
+<p>具体直接看脚本实现：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/bin/sh</span></span><br><span class="line"></span><br><span class="line">httpport=<span class="string">""</span></span><br><span class="line">serverport=<span class="string">""</span></span><br><span class="line">ajpport=<span class="string">""</span></span><br><span class="line"><span class="comment">#这里定义webapps的目录，根据域名在此生成对应的目录</span></span><br><span class="line">webappsdir=<span class="string">"/data/nfs/webapps"</span></span><br><span class="line"><span class="comment">#这里定为配置文件的目录，根据域名生成对应的配置文件</span></span><br><span class="line">websitedir=<span class="string">"/data/tomcat/website"</span></span><br><span class="line"><span class="comment">#域名</span></span><br><span class="line">domain=<span class="string">""</span></span><br><span class="line"><span class="comment">#Tomcat的Home目录</span></span><br><span class="line">tomcathome=<span class="string">"/data/tomcat"</span></span><br><span class="line"><span class="comment">#上面的配置文件目录</span></span><br><span class="line">templatedir=<span class="string">"/data/tomcat/website/default_template"</span></span><br><span class="line"><span class="comment">#访问路径，默认就是根目录，现在没用到</span></span><br><span class="line">accesspath=<span class="string">""</span></span><br><span class="line"><span class="comment">#配置后是否直接运行</span></span><br><span class="line">isrun=<span class="string">"n"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"===========Input Port========="</span></span><br><span class="line"><span class="comment">#输入运行的端口号，每个实例都需要不同的端口号，我是以8181为基础，8182，8183 这样递增</span></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">"(http run port):"</span> httpport</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$httpport</span>"</span> = <span class="string">""</span> ]; <span class="keyword">then</span></span><br><span class="line">     <span class="built_in">echo</span> <span class="string">"http port can't be empty"</span></span><br><span class="line">     <span class="built_in">exit</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment">#server port 如果为空，则默认在上面的哪个端口中加个3，如：38181，38182</span></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">"(server port default 3<span class="variable">$httpport</span>):"</span> serverport</span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$serverport</span>"</span> = <span class="string">""</span> ]; <span class="keyword">then</span></span><br><span class="line">	serverport=3<span class="variable">$httpport</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment">#ajport 和server port一样，运行端口千米加个4。如：48181</span></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">"(ajp port default 4<span class="variable">$httpport</span>):"</span> ajpport</span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$ajpport</span>"</span> = <span class="string">""</span> ]; <span class="keyword">then</span></span><br><span class="line">	ajpport=4<span class="variable">$httpport</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment">#域名</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"============input domain============="</span></span><br><span class="line"><span class="comment">#read -p "domain:" domain</span></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">"domain:"</span> domain</span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$domain</span>"</span> = <span class="string">""</span> ]; <span class="keyword">then</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">" domain can't be empty"</span></span><br><span class="line">	<span class="built_in">exit</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ -d <span class="string">"<span class="variable">$websitedir</span>/<span class="variable">$domain</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"==========================="</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"<span class="variable">$domain</span> is exist!"</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"==========================="</span>      </span><br><span class="line">	<span class="built_in">exit</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#如果不想用默认的webapps目录，则自定义输入，否则使用默认的+域名</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"============input webapps dir==========="</span></span><br><span class="line">webappsdir_input=<span class="string">""</span></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">"webapps dir:(default <span class="variable">$webappsdir</span>/<span class="variable">$domain</span>):"</span> webappsdir_input</span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$webappsdir_input</span>"</span> = <span class="string">""</span> ]; <span class="keyword">then</span></span><br><span class="line">	webappsdir_input=<span class="variable">$webappsdir</span>/<span class="variable">$domain</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment">#配置完后是否直接运行</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"=========is run now?(y/n)======="</span></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">"(default n):"</span> isrun</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ ! -d <span class="string">"<span class="variable">$webappsdir_input</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">	mkdir -p <span class="variable">$webappsdir_input</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"http port:<span class="variable">$httpport</span>"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"server port:<span class="variable">$serverport</span>"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"ajp port:<span class="variable">$ajpport</span>"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"domain :<span class="variable">$domain</span>"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"webapps dir :<span class="variable">$webappsdir_input</span>"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"======== Cp ========"</span></span><br><span class="line">cp <span class="variable">$templatedir</span> <span class="variable">$websitedir</span>/<span class="variable">$domain</span> -r</span><br><span class="line"><span class="comment">#以下均为替换 占位符</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"=========replace======="</span></span><br><span class="line"><span class="comment">#sed -i "s/catalina_base_dir/catalina_base_dir_r/g" `grep catalina_base_dir -rl ./tomcat.sh`</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$webappsdir_input</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#tomcat.sh</span></span><br><span class="line">sed -i <span class="string">"s#catalina_base_dir#<span class="variable">$&#123;websitedir&#125;</span>/<span class="variable">$&#123;domain&#125;</span>#g"</span> `grep catalina_base_dir -rl <span class="variable">$websitedir</span>/<span class="variable">$domain</span>/tomcat.sh`</span><br><span class="line">sed -i <span class="string">"s#catalina_home_dir#<span class="variable">$&#123;tomcathome&#125;</span>#g"</span> `grep catalina_home_dir -rl <span class="variable">$websitedir</span>/<span class="variable">$domain</span>/tomcat.sh`</span><br><span class="line"></span><br><span class="line"><span class="comment">#conf/server.xml</span></span><br><span class="line">sed -i <span class="string">"s#server_port#<span class="variable">$&#123;serverport&#125;</span>#g"</span> `grep server_port -rl <span class="variable">$websitedir</span>/<span class="variable">$domain</span>/conf/server.xml`</span><br><span class="line">sed -i <span class="string">"s#http_port#<span class="variable">$&#123;httpport&#125;</span>#g"</span> `grep http_port -rl <span class="variable">$websitedir</span>/<span class="variable">$domain</span>/conf/server.xml`</span><br><span class="line">sed -i <span class="string">"s#ajp_port#<span class="variable">$&#123;ajpport&#125;</span>#g"</span> `grep ajp_port -rl <span class="variable">$websitedir</span>/<span class="variable">$domain</span>/conf/server.xml`</span><br><span class="line">sed -i <span class="string">"s#localhost_webapps#<span class="variable">$&#123;tomcathome&#125;</span>/webapps#g"</span> `grep localhost_webapps -rl <span class="variable">$websitedir</span>/<span class="variable">$domain</span>/conf/server.xml`</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#ROOT.xml</span></span><br><span class="line">sed -i <span class="string">"s#webapps_dir#<span class="variable">$&#123;webappsdir_input&#125;</span>#g"</span> `grep webapps_dir -rl <span class="variable">$websitedir</span>/<span class="variable">$domain</span>/conf/Catalina/localhost/ROOT.xml`</span><br><span class="line"></span><br><span class="line"><span class="comment">#生成默认的index.html</span></span><br><span class="line"><span class="keyword">if</span> [ ! -f <span class="string">"<span class="variable">$webappsdir_input</span>/index.html"</span> ]; <span class="keyword">then</span></span><br><span class="line">	touch <span class="string">"<span class="variable">$webappsdir_input</span>/index.html"</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"&lt;html&gt;&lt;head&gt;&lt;title&gt;<span class="variable">$domain</span>&lt;/title&gt;&lt;/head&gt;&lt;body&gt;<span class="variable">$domain</span>&lt;/body&gt;&lt;html&gt;"</span> &gt; <span class="variable">$webappsdir_input</span>/index.html</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$isrun</span>"</span> = <span class="string">"y"</span> ]; <span class="keyword">then</span></span><br><span class="line">	sh <span class="variable">$websitedir</span>/<span class="variable">$domain</span>/tomcat.sh start</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#OK </span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"=========Success============="</span></span><br></pre></td></tr></table></figure>
+<h3 id="实现结果截图"><a class="markdownIt-Anchor" href="#实现结果截图"></a> 实现结果截图</h3>
+<p>根据上面的脚本执行结果。如图1：<br>
+<img src="http://7xk2gz.com1.z0.glb.clouddn.com/tomcat_deploy_shell_execing.png" alt="图1 执行结果 "><br>
+.<br>
+此脚本执行后生成两种个目录，分别为配置文件目录，和项目所在的webapps目录。如图2和图3：<br>
+配置文件目录</p>
+<p><img src="http://7xk2gz.com1.z0.glb.clouddn.com/tomcat_deploy_shell_website_conf.png" alt="图2 配置文件效果"></p>
+<p>生成的webapps目录：</p>
+<p><img src="http://7xk2gz.com1.z0.glb.clouddn.com/tomcat_deploy_shell_webapps.png" alt="图3 webapps目录"></p>
+<p>此时在配置文件目录中，直接运行：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/bin/sh</span></span><br><span class="line">./tomcat.sh start</span><br><span class="line"><span class="comment">#或</span></span><br><span class="line">./tomcat.sh stop</span><br></pre></td></tr></table></figure>
+<p>就可以直接运行。<br>
+写的粗糙，轻拍。</p>
+
+      
+    </div>
+    <footer>
+      
+         
+  
+  <div class="categories">
+    <a href="/categories/Tomcat/">Tomcat</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/Java/">Java</a>, <a href="/tags/Tomcat/">Tomcat</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+                
+<div class="prev_next clearfix">
+  
+  <a href="/2015/08/06/linux-amr-convert-mp3-0K/" class="prev" title="java amr格式转mp3格式(完美解决Linux下转换0K问题)">上一篇<span class="xs-hidden">：java amr格式转mp3格式(完美解决Linux下转换0K问题)</span></a>
+  
+  
+  <a href="/2015/06/15/Tomcat-deploy/" class="next" title="Tomcat 多实例部署脚本">下一篇<span class="xs-hidden">：Tomcat 多实例部署脚本</span></a>
+  
+</div>
+
+                
+
+<div id="comment">
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+</div>
+<script>
+    var gitment = new Gitment({
+        id: window.location.pathname,
+        title: 'Tomcat 多实例部署脚本-下',
+        owner: 'cnlinjie',
+        repo: 'cnlinjie.github.io',
+        oauth: {
+            client_id: '7ffc80f45cfe2730f641',
+            client_secret: 'be513e3ef3e9ef77f7cbc0e93c9fac6878844e04',
+        },
+    })
+    gitment.render('comment')
+</script>
+
+
+
+
+        </div>
+</div>
+<aside id="sidebar" class="alignright">
+    
+  <div class="widget widget-toc" style="display: none">
+  <h3 class="title">文章目录</h3>
+  <div class="container" style="padding: 15px 20px;">
+  </div>
+</div>
+<script src="/js/toc.js"></script>
+
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft" style="margin-top: 20px;">
+  
+  &copy; 2022 林杰
+  
+   |  &nbsp; Proudly powered by Hexo  &nbsp;&nbsp;&nbsp;
+</div>
+
+<!-- cnzz -->
+
+<div style="padding-left:100px; display: none;" >
+
+<script src="http://s5.cnzz.com/stat.php?id=3903372&web_id=3903372" language="JavaScript"></script>
+
+</div>
+
+
+<div class="clearfix"></div>
+</footer>
+  <script src="//lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>

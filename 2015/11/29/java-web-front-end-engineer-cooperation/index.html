@@ -1,0 +1,265 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>有感而发 , 前端该如何与Java服务端配合开发 | 林杰</title>
+  <meta name="author" content="林杰">
+  
+  <meta name="description" content="Java 最烦的的几点就是安装麻烦，配置麻烦，运行麻烦。
+其中每一点只要遇到问题就进行不下去。
+这点相比PHP真的差远了，只要安装一个XMAPP,一条龙服务到位，而且文件不用编译，不用重启，既改既生效。
+工作这几年下来，与前端的分工总不是那么理想，前前后后尝试了好几种方式，都是不怎么太理想，最近所在的公司是让前端安装了一模一样的开发环境，Eclipse！，然后所有的环境Java人员帮配好，但是一旦有修改文件，而又不是Eclipse里面修改（现在前端习惯使用 sublime text ），就不会自动同步对应的容器中，要回到Eclipse中刷新才生效，繁琐的多余的流程，让前端也很不爽。">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="有感而发 , 前端该如何与Java服务端配合开发">
+  <meta property="og:site_name" content="林杰">
+
+  
+    <meta property="og:image" content="undefined">
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="林杰" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+</html>
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">林杰</a></h1>
+  <h2><a href="/">一切又回到原地。</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+      <li><a href="/books">书单</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    
+
+<div id="main-col" class="alignleft">
+        <div id="wrapper" >
+                <article class="post">
+  
+  <div class="post-content">
+    <header>
+        
+  
+    <h1 class="title">有感而发 , 前端该如何与Java服务端配合开发</h1>
+  
+
+      
+        <div style="margin-top: 10px;" >
+            <time datetime="2015-11-29T14:21:57.000Z">发表于 2015-11-29</time>
+        </div>
+      
+
+    </header>
+    <div class="entry">
+      
+
+	<!-- Table of Contents -->
+	
+  		<div id="toc" class="toc-article">
+  		<h1>TOC</h1>
+  		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#直接发war包给前端"><span class="toc-number">1.</span> <span class="toc-text"> 直接发war包给前端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#完全采用接口方式开发"><span class="toc-number">2.</span> <span class="toc-text"> 完全采用接口方式开发</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#前端只做静态"><span class="toc-number">3.</span> <span class="toc-text"> 前端只做静态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#帮前端建立一套java开发环境"><span class="toc-number">4.</span> <span class="toc-text"> 帮前端建立一套Java开发环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用maven-推荐"><span class="toc-number">5.</span> <span class="toc-text"> 使用maven （推荐）</span></a></li></ol>
+  		</div>
+	
+	<!-- /Table of Contents -->
+
+        <p>Java 最烦的的几点就是安装麻烦，配置麻烦，运行麻烦。<br>
+其中每一点只要遇到问题就进行不下去。<br>
+这点相比PHP真的差远了，只要安装一个XMAPP,一条龙服务到位，而且文件不用编译，不用重启，既改既生效。<br>
+工作这几年下来，与前端的分工总不是那么理想，前前后后尝试了好几种方式，都是不怎么太理想，最近所在的公司是让前端安装了一模一样的开发环境，Eclipse！，然后所有的环境Java人员帮配好，但是一旦有修改文件，而又不是Eclipse里面修改（现在前端习惯使用 sublime text ），就不会自动同步对应的容器中，要回到Eclipse中刷新才生效，繁琐的多余的流程，让前端也很不爽。</p>
+<a id="more"></a>
+<p>以下列举几种用到过的协作方式，然后推荐一种：</p>
+<h2 id="直接发war包给前端"><a class="markdownIt-Anchor" href="#直接发war包给前端"></a> 直接发war包给前端</h2>
+<pre><code>这种方式快，但也后患无穷。
+</code></pre>
+<p>前提：安装<code>Jdk</code>环境，安装<code>Tomcat</code>(或其他容器）</p>
+<p>优点：</p>
+<ol>
+<li>直接运行起来</li>
+<li>可以让前端在webapps里面改东西，即改既生效，可以调接口</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>文件修改后需要提取出来（麻烦）</li>
+<li>如果接口报错，需要服务端再发包</li>
+</ol>
+<h2 id="完全采用接口方式开发"><a class="markdownIt-Anchor" href="#完全采用接口方式开发"></a> 完全采用接口方式开发</h2>
+<pre><code>这种方式，就相当于全站采用（至少大部分）Ajax，前端这边直接调接口，本身可以允许在一个Apache环境或Nginx环境，只要解决跨域问题就可以。
+</code></pre>
+<p>优点：<br>
+跟App开发一样，只调接口，不依赖环境，最纯粹的分工。<br>
+PS：之前比较崇尚。<br>
+缺点：<br>
+也不算缺点，算产品定位了，大范围使用Ajax，在用户体验，数据异步加载等。还有对SEO也不怎么友好。</p>
+<h2 id="前端只做静态"><a class="markdownIt-Anchor" href="#前端只做静态"></a> 前端只做静态</h2>
+<pre><code>这种方式也是产品定位与开发方式的一种，还有需要Java服务端人员懂的前端开发。前端人员只做模板，模板包含了效果，交互，提示说明等。之后服务端开发人员整合到模板引擎中去，不管是使用freemarker或单纯jsp都可以。
+而前端开发人员，连接口都不用调。
+</code></pre>
+<p>优点：</p>
+<ol>
+<li>前端不需要参与Java的交互，连接口都不用调，纯粹的将原型转为更好看的原型，然后加一些效果。</li>
+<li>纯粹采用Java的模板引擎，或者让Java写JS，一些接口自己写，自己调，这方面少了沟通的成本，不过还是要出文档。<br>
+缺点：</li>
+<li>协作过程中需要频繁沟通，毕竟是将前端做的东西转为Java适应的模板。</li>
+<li>如果页面出了问题，需要是前端问题还是服务端问题</li>
+<li>如果产品升级，前端只改静态页面的话，服务端需要比对两个文件的差异，然后再提取需要的html, css, js　等到升级的页面。通常也需要更麻烦的沟通。</li>
+<li>一旦静态升级过于频繁，服务端压力很大，很容易导致代码混乱，难以维护</li>
+</ol>
+<p>评论：适合快速开发，且服务端需要有前端的基础</p>
+<h2 id="帮前端建立一套java开发环境"><a class="markdownIt-Anchor" href="#帮前端建立一套java开发环境"></a> 帮前端建立一套Java开发环境</h2>
+<pre><code>这点就前面讲过的，Java开发人员用什么环境，前端就用什么环境，完全搬一套过来。
+</code></pre>
+<p>前提：需要帮前端安装一系列环境</p>
+<p>优点</p>
+<ol>
+<li>不需要考虑太多，让前端人员适应Java的开发过程，不过是调接口还是静态开发都可以<br>
+缺点：</li>
+<li>每天自己启动环境，启动服务，启动程序，前端需要熟悉Java人员的开发流程</li>
+<li>只适合内部团队开发，如果在异地，除非前端自己懂的搭环境，否则远程很蛋疼。</li>
+<li>受IDE的限制，有时候需要使用IDE改才生效，要不然在外部修改后需要回到IDE里面刷新（现在不知道有没这限制，之前有，很蛋疼）</li>
+</ol>
+<h2 id="使用maven-推荐"><a class="markdownIt-Anchor" href="#使用maven-推荐"></a> 使用maven （推荐）</h2>
+<pre><code>跟以上的帮前端安装环境类似，不过好的一点，是比较干净。
+</code></pre>
+<p>前提：帮前端安装<code>JDK</code>环境，<code>Maven</code>环境</p>
+<p>优点：</p>
+<ol>
+<li>比IDE 好点，可以既改既生效</li>
+<li>启动简单（比上面的那个），服务端人员写一个小脚本，不过是shell囧啊本还是bat脚本，前端只要双击即可自动编译，如：</li>
+</ol>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn clean install tomcat7:run <span class="keyword">package</span> <span class="title">-DskipTests</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>兼容性比较强。</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>需要安装JDK和Maven，首次启动需要下载一些jar包，网络不好就不爽了。</li>
+<li>也是适合内部团队开发，不过好点的是比较干净！</li>
+<li>依赖Maven环境。</li>
+</ol>
+<p>好了，这么晚了，随便写写。</p>
+
+      
+    </div>
+    <footer>
+      
+         
+        
+  
+  <div class="tags">
+    <a href="/tags/协作开发/">协作开发</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+                
+<div class="prev_next clearfix">
+  
+  <a href="/2016/04/22/php-interceptor/" class="prev" title="php 用nginx实现拦截器的思路">上一篇<span class="xs-hidden">：php 用nginx实现拦截器的思路</span></a>
+  
+  
+  <a href="/2015/08/06/linux-amr-convert-mp3-0K/" class="next" title="java amr格式转mp3格式(完美解决Linux下转换0K问题)">下一篇<span class="xs-hidden">：java amr格式转mp3格式(完美解决Linux下转换0K问题)</span></a>
+  
+</div>
+
+                
+
+<div id="comment">
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+</div>
+<script>
+    var gitment = new Gitment({
+        id: window.location.pathname,
+        title: '有感而发 , 前端该如何与Java服务端配合开发',
+        owner: 'cnlinjie',
+        repo: 'cnlinjie.github.io',
+        oauth: {
+            client_id: '7ffc80f45cfe2730f641',
+            client_secret: 'be513e3ef3e9ef77f7cbc0e93c9fac6878844e04',
+        },
+    })
+    gitment.render('comment')
+</script>
+
+
+
+
+        </div>
+</div>
+<aside id="sidebar" class="alignright">
+    
+  <div class="widget widget-toc" style="display: none">
+  <h3 class="title">文章目录</h3>
+  <div class="container" style="padding: 15px 20px;">
+  </div>
+</div>
+<script src="/js/toc.js"></script>
+
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft" style="margin-top: 20px;">
+  
+  &copy; 2022 林杰
+  
+   |  &nbsp; Proudly powered by Hexo  &nbsp;&nbsp;&nbsp;
+</div>
+
+<!-- cnzz -->
+
+<div style="padding-left:100px; display: none;" >
+
+<script src="http://s5.cnzz.com/stat.php?id=3903372&web_id=3903372" language="JavaScript"></script>
+
+</div>
+
+
+<div class="clearfix"></div>
+</footer>
+  <script src="//lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>

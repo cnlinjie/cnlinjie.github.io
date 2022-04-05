@@ -1,0 +1,270 @@
+<!DOCTYPE HTML>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>fedora23 编译 WizNote2.3.3 | 林杰</title>
+  <meta name="author" content="林杰">
+  
+  <meta name="description" content="前期环境准备
+
+为了方便操作，请先切换到root环境下!
+前期的gcc,make 等编译环境应该默认你们有了。
+
+ 下载WizNote 源码
+
+打开官网应该都知道源码的地址放在哪，如果你会点git操作就更好了。
+地址：
+https://github.com/WizTeam/WizQTClient
+下载回来解压，然后cd进目录，直接执行./linux-package.sh 进行编译安装。
+OK，可以吗？反正我就是不行，报了一大堆问题，所以继续。
+
+ 准备依赖环境
+本次依赖环境所需是根据本次经验而成，如果有其他问题可以留言。
+
+核心就是：缺什么装什么，有yum(dnf)就直接装，没有先找找有没现成的 rpm ,再没有就编译。所以不必惊慌。
+
+以下是我所遇到的问题，如果同样问题的可以对号入座，如果不一样，可以留言，看到就回：
+
+卡在了这，提示我找不到 这几个库文件。
+
+12345cp /usr/lib/x86_64-linux-gnu/libQtWebKit.so.4 ./cp /usr/lib/x86_64-linux-gnu/libQtGui.so.4 ./cp /usr/lib/x86_64-linux-gnu//libQtXml.so.4 ./cp /usr/lib/x86_64-linux-gnu/libQtNetwork.so.4 ./cp /usr/lib/x86_64-linux-gnu/libQtCore.so.4 ./">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="fedora23 编译 WizNote2.3.3">
+  <meta property="og:site_name" content="林杰">
+
+  
+    <meta property="og:image" content="undefined">
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="林杰" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+</html>
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">林杰</a></h1>
+  <h2><a href="/">一切又回到原地。</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+      <li><a href="/books">书单</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    
+
+<div id="main-col" class="alignleft">
+        <div id="wrapper" >
+                <article class="post">
+  
+  <div class="post-content">
+    <header>
+        
+  
+    <h1 class="title">fedora23 编译 WizNote2.3.3</h1>
+  
+
+      
+        <div style="margin-top: 10px;" >
+            <time datetime="2016-08-25T14:20:56.000Z">发表于 2016-08-25</time>
+        </div>
+      
+
+    </header>
+    <div class="entry">
+      
+
+	<!-- Table of Contents -->
+	
+  		<div id="toc" class="toc-article">
+  		<h1>TOC</h1>
+  		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前期环境准备"><span class="toc-number">1.</span> <span class="toc-text"> 前期环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#下载wiznote-源码"><span class="toc-number">2.</span> <span class="toc-text"> 下载WizNote 源码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#准备依赖环境"><span class="toc-number">3.</span> <span class="toc-text"> 准备依赖环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开始编译"><span class="toc-number">4.</span> <span class="toc-text"> 开始编译</span></a></li></ol>
+  		</div>
+	
+	<!-- /Table of Contents -->
+
+        <h2 id="前期环境准备"><a class="markdownIt-Anchor" href="#前期环境准备"></a> 前期环境准备</h2>
+<ol>
+<li><strong>为了方便操作，请先切换到root环境下!</strong></li>
+<li>前期的gcc,make 等编译环境应该默认你们有了。</li>
+</ol>
+<h2 id="下载wiznote-源码"><a class="markdownIt-Anchor" href="#下载wiznote-源码"></a> 下载WizNote 源码</h2>
+<ol>
+<li>打开官网应该都知道源码的地址放在哪，如果你会点git操作就更好了。<br>
+地址：<br>
+<em><a href="https://github.com/WizTeam/WizQTClient" target="_blank" rel="noopener">https://github.com/WizTeam/WizQTClient</a></em></li>
+<li>下载回来解压，然后cd进目录，直接执行<code>./linux-package.sh</code> 进行编译安装。</li>
+<li>OK，可以吗？反正我就是不行，报了一大堆问题，所以继续。</li>
+</ol>
+<h2 id="准备依赖环境"><a class="markdownIt-Anchor" href="#准备依赖环境"></a> 准备依赖环境</h2>
+<pre><code>本次依赖环境所需是根据本次经验而成，如果有其他问题可以留言。
+
+核心就是：缺什么装什么，有yum(dnf)就直接装，没有先找找有没现成的 rpm ,再没有就编译。所以不必惊慌。
+</code></pre>
+<p>以下是我所遇到的问题，如果同样问题的可以对号入座，如果不一样，可以留言，看到就回：</p>
+<ol>
+<li><strong>卡在了这，提示我找不到 这几个库文件。</strong></li>
+</ol>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">x86_64</span>-<span class="title">linux</span>-<span class="title">gnu</span>/<span class="title">libQtWebKit</span>.<span class="title">so</span>.4 ./</span></span><br><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">x86_64</span>-<span class="title">linux</span>-<span class="title">gnu</span>/<span class="title">libQtGui</span>.<span class="title">so</span>.4 ./</span></span><br><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">x86_64</span>-<span class="title">linux</span>-<span class="title">gnu</span>//<span class="title">libQtXml</span>.<span class="title">so</span>.4 ./</span></span><br><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">x86_64</span>-<span class="title">linux</span>-<span class="title">gnu</span>/<span class="title">libQtNetwork</span>.<span class="title">so</span>.4 ./</span></span><br><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">x86_64</span>-<span class="title">linux</span>-<span class="title">gnu</span>/<span class="title">libQtCore</span>.<span class="title">so</span>.4 ./</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>我直接google搜索：<a href="http://libQtWebKit.so" target="_blank" rel="noopener">libQtWebKit.so</a><br>
+发现是在：<a href="http://rpm.pbone.net/index.php3/stat/3/srodzaj/1/search/libQtWebKit.so.4()(64bit)" target="_blank" rel="noopener">http://rpm.pbone.net/index.php3/stat/3/srodzaj/1/search/libQtWebKit.so.4()(64bit)</a><br>
+这里有，于是找到对应版本安装下载。<br>
+下载后，安装：<code>yum install qtwebkit-2.3.4-8.fc23.i686.rpm</code> （我的版本）</p>
+<p><em>另：后来我发现yum 里面有个 qtwebkit 的，可以直接 yum install qtwebkit  ，但我没试过 😄</em></p>
+<p>好了，安装过后，再继续，提示我还是找不到，纳闷。<br>
+于是通过 find /usr/ -name “libQtWebKit.so.4” 去查，发现路径跟安装脚本不一样，在<code>/usr/lib/libQtWebKit.so.4</code> 于是我查了剩下的几个位置，果然都不一样，于是修改安装脚本，如下：</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">libQtWebKit</span>.<span class="title">so</span>.4 ./</span></span><br><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">libQtGui</span>.<span class="title">so</span>.4 ./</span></span><br><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">libQtXml</span>.<span class="title">so</span>.4 ./</span></span><br><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">libQtNetwork</span>.<span class="title">so</span>.4 ./</span></span><br><span class="line">cp /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">libQtCore</span>.<span class="title">so</span>.4 ./</span></span><br></pre></td></tr></table></figure>
+<p>OK，继续执行，这个问题就过了。<br>
+2. <strong>这次遇到的是QT问题，提示没有找到QT的什么什么，还需要设置QT_DIR的环境变量（当时没有记录下来）。</strong></p>
+<p>好，缺少QT环境，那就安装，怎么装，我先去wiz.cn看了看，有篇 <a href="http://www.wiz.cn/wiznote-qt/compile-wiznote-on-centos" target="_blank" rel="noopener">http://www.wiz.cn/wiznote-qt/compile-wiznote-on-centos</a><br>
+在<code>下载安装QT 4.8.6</code>之前可以照做这个：<br>
+安装开发库</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sudo yum <span class="keyword">install </span>libX11-devel, libXext-devel, libXtst-devel</span><br><span class="line">sudo yum <span class="keyword">install </span>libX11-devel libXext-devel libXtst-devel</span><br><span class="line">sudo yum <span class="keyword">install </span>libXrender-devel</span><br><span class="line">sudo yum <span class="keyword">install </span>zlib-devel</span><br><span class="line">sudo yum <span class="keyword">install </span>openssl-devel</span><br><span class="line">sudo yum <span class="keyword">install </span>flex <span class="keyword">bison </span>gperf libicu-devel libxslt-devel ruby</span><br><span class="line">sudo yum <span class="keyword">install </span>libxcb libxcb-devel xcb-util xcb-util-devel</span><br><span class="line">sudo yum <span class="keyword">install </span>freetype-devel</span><br><span class="line">sudo yum <span class="keyword">install </span>fontconfig-devel</span><br></pre></td></tr></table></figure>
+<p>还有我后来从QT官网找到个：</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> yum install mesa-libEGL-devel libgcrypt-devel libgcrypt pciutils-devel nss-devel libXtst-devel gperf</span><br><span class="line">cups-devel pulseaudio-libs-devel libgudev1-devel systemd-devel libcap-devel alsa-<span class="class"><span class="keyword">lib</span>-<span class="title">devel</span> <span class="title">flex</span> <span class="title">bison</span> <span class="title">ruby</span></span></span><br></pre></td></tr></table></figure>
+<p>然后开始折腾QT环境（我能说我下了5.6的，结果wiz依赖的居然是最新的5.7,泪奔！编译了我几个小时）<br>
+到这边：<a href="http://download.qt.io/official_releases/qt/5.7/5.7.0/single/" target="_blank" rel="noopener">http://download.qt.io/official_releases/qt/5.7/5.7.0/single/</a><br>
+选一个自己下载。<br>
+下载回来后，解压，不要按照为知上的那个。<br>
+cd 进目录之后，如下</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/usr/local/qt<span class="number">-5.7</span><span class="number">.0</span></span><br></pre></td></tr></table></figure>
+<p>那个路径最好指定下，当然你可以改。<br>
+这个时候我好像没出什么问题，可能是之前依赖都装了差不多了。<br>
+之后就是熟悉了 <code>make</code> 和 <code>make install</code>了，这个过程有点漫长，我用了将近4个小时，跟我的渣CPU有关，慢慢等。</p>
+<h2 id="开始编译"><a class="markdownIt-Anchor" href="#开始编译"></a> 开始编译</h2>
+<p>好，环境依赖解决后，就可以开始编译了。<br>
+重新进入到WizNote的源码里面，继续执行<code>./linux-package.sh</code> ,等待[100]的编译过后（我又没有截图，太心急了）。<br>
+然后后退一个目录，就可以看到这两个东西：<br>
+<code>WizNote</code>和<code>WizNote.tar.gz</code> 。<br>
+恭喜，编译成功，直接cd进 WizNote 然后看到一个执行文件，直接先执行<code>./WizNote</code></p>
+<p><img src="http://7xk2gz.com1.z0.glb.clouddn.com/wiz2016-08-26%2009-23-53%20%E7%9A%84%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE.png" alt></p>
+<p>参考：</p>
+<ol>
+<li><a href="http://www.wiz.cn/wiznote-qt/compile-wiznote-on-centos" target="_blank" rel="noopener">http://www.wiz.cn/wiznote-qt/compile-wiznote-on-centos</a></li>
+<li><a href="http://wiki.qt.io/QtWebEngineHowToTry" target="_blank" rel="noopener">http://wiki.qt.io/QtWebEngineHowToTry</a></li>
+</ol>
+
+      
+    </div>
+    <footer>
+      
+         
+        
+  
+  <div class="tags">
+    <a href="/tags/wiz/">wiz</a>
+  </div>
+
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+                
+<div class="prev_next clearfix">
+  
+  <a href="/2018/02/03/test/test/" class="prev" title="测试">上一篇<span class="xs-hidden">：测试</span></a>
+  
+  
+  <a href="/2016/04/23/Sonatype-nexus-3-build-run/" class="next" title="团队建设-Maven 仓库 Sonatype Nexus 的搭建">下一篇<span class="xs-hidden">：团队建设-Maven 仓库 Sonatype Nexus 的搭建</span></a>
+  
+</div>
+
+                
+
+<div id="comment">
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+</div>
+<script>
+    var gitment = new Gitment({
+        id: window.location.pathname,
+        title: 'fedora23 编译 WizNote2.3.3',
+        owner: 'cnlinjie',
+        repo: 'cnlinjie.github.io',
+        oauth: {
+            client_id: '7ffc80f45cfe2730f641',
+            client_secret: 'be513e3ef3e9ef77f7cbc0e93c9fac6878844e04',
+        },
+    })
+    gitment.render('comment')
+</script>
+
+
+
+
+        </div>
+</div>
+<aside id="sidebar" class="alignright">
+    
+  <div class="widget widget-toc" style="display: none">
+  <h3 class="title">文章目录</h3>
+  <div class="container" style="padding: 15px 20px;">
+  </div>
+</div>
+<script src="/js/toc.js"></script>
+
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft" style="margin-top: 20px;">
+  
+  &copy; 2022 林杰
+  
+   |  &nbsp; Proudly powered by Hexo  &nbsp;&nbsp;&nbsp;
+</div>
+
+<!-- cnzz -->
+
+<div style="padding-left:100px; display: none;" >
+
+<script src="http://s5.cnzz.com/stat.php?id=3903372&web_id=3903372" language="JavaScript"></script>
+
+</div>
+
+
+<div class="clearfix"></div>
+</footer>
+  <script src="//lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
