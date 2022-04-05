@@ -12,7 +12,7 @@ tags:
 今天查自己域名的时候，突然发现一个网站居然还有我域名的历史快照。
 感动！虽然只有两张。
 <!-- more -->
-![老博客截图](http://7xkxil.com1.z0.glb.clouddn.com/old-blogold-blog-1.png)
+![老博客截图](http://qiniu.oss.cnlinjie.cn/old-blogold-blog-1.png)
 在此输入正文
-![老博客截图](http://7xkxil.com1.z0.glb.clouddn.com/old-blogold-blog-2.png)
+![老博客截图](http://qiniu.oss.cnlinjie.cn/old-blogold-blog-2.png)
 

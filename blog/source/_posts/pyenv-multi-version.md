@@ -14,7 +14,7 @@ The `python2' command exists in these Python versions:
   2.7.13
   
 ```
-![](http://7xkxil.com1.z0.glb.clouddn.com/15250173391023.jpg)
+![](http://qiniu.oss.cnlinjie.cn/15250173391023.jpg)
 
 
 
@@ -37,7 +37,7 @@ The `python2' command exists in these Python versions:
 使用`pyenv global` 设置时，可以设置多个，设置之后如图：
 
 
-![](http://7xkxil.com1.z0.glb.clouddn.com/15250174632176.jpg)
+![](http://qiniu.oss.cnlinjie.cn/15250174632176.jpg)
 
 
 

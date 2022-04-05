@@ -45,7 +45,7 @@ su nexus
 将下载好的文件直接解压，见如图：
 
 
-![](http://7xkxil.com1.z0.glb.clouddn.com/15233731913167.jpg)
+![](http://qiniu.oss.cnlinjie.cn/15233731913167.jpg)
 
 在nexus用户的根目录: 
 

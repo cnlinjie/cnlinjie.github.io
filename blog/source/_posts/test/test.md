@@ -7,7 +7,7 @@ tags:
 ---
 
 
-![](http://7xkxil.com1.z0.glb.clouddn.com/2018-04-06-288043-106.jpg)
+![](http://qiniu.oss.cnlinjie.cn/2018-04-06-288043-106.jpg)
 
 
 测试
@@ -20,6 +20,6 @@ public static void main() {
 ```
 
 
-![62511-106](http://7xkxil.com1.z0.glb.clouddn.com/2018-04-08-62511-106.jpg)
+![62511-106](http://qiniu.oss.cnlinjie.cn/2018-04-08-62511-106.jpg)
 
 

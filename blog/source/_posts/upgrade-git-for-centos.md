@@ -14,7 +14,7 @@ tags:
 git version 
 ```
 
-![show version](http://7xkxil.com1.z0.glb.clouddn.com/2018-04-10-show%20version.png)
+![show version](http://qiniu.oss.cnlinjie.cn/2018-04-10-show%20version.png)
 
 
 <!-- more -->
@@ -57,7 +57,7 @@ source /etc/bashrc
 git version 
 ```
 
-![](http://7xkxil.com1.z0.glb.clouddn.com/2018-04-10-15233325844877.jpg)
+![](http://qiniu.oss.cnlinjie.cn/2018-04-10-15233325844877.jpg)
 
 
 
