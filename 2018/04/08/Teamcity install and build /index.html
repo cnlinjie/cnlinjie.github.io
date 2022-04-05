@@ -130,7 +130,7 @@ Teamcity 一些复杂的操作也还在摸索当中，一样还是要看文档�
 <p>环境要求：JDK 1.8 以上，配置好java 的环境。</p>
 <p>MySQL： 目前服务器装有Mysql，所以直接使用MySQL ， Teamcity 也可以使用内置的 sqlite ，可直接使用。</p>
 <p>下载过来的是个 .zip 的压缩包，解压后，目录应该如下：<br>
-<img src="http://7xkxil.com1.z0.glb.clouddn.com/2018-04-09-15232861377527.jpg" alt></p>
+<img src="http://qiniu.oss.cnlinjie.cn/2018-04-09-15232861377527.jpg" alt></p>
 <p>使用最简单的安装部署方式，直接 cd 进入到 <code>bin</code> 里面，执行:</p>
 <figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root<span class="symbol">@localhost</span> TeamCity]<span class="meta"># cd ./Teamcity/bin/</span></span><br><span class="line">[root<span class="symbol">@localhost</span> bin]<span class="meta"># ./runAll.sh start</span></span><br></pre></td></tr></table></figure>
 <p>停止的话：</p>
@@ -140,19 +140,19 @@ Teamcity 一些复杂的操作也还在摸索当中，一样还是要看文档�
 <p>Teamcity 默认的端口是：8111 ，可在配置文件更改（不是重点）</p>
 <p>浏览器访问：<a href="http://ip:8111" target="_blank" rel="noopener">http://ip:8111</a></p>
 <p>此时如果正确安装的话，会看到：</p>
-<p><img src="http://7xkxil.com1.z0.glb.clouddn.com/2018-04-09-15232869661694.jpg" alt></p>
+<p><img src="http://qiniu.oss.cnlinjie.cn/2018-04-09-15232869661694.jpg" alt></p>
 <p>让你填一个数据存储目录，我填了 <code>/data/TeamCityData</code></p>
 <p><em>PS: 这一步忘记截图了，用的别人的图。</em></p>
-<p><img src="http://7xkxil.com1.z0.glb.clouddn.com/2018-04-09-2.%20%E6%9F%A5%E6%89%BE%E9%A9%B1%E5%8A%A8.png" alt></p>
+<p><img src="http://qiniu.oss.cnlinjie.cn/2018-04-09-2.%20%E6%9F%A5%E6%89%BE%E9%A9%B1%E5%8A%A8.png" alt></p>
 <p>下拉里面可以选择 MySQL ，截图时截了PostgreSQL ，不好意思。</p>
 <p>此时应该会提示 缺失 对应的驱动，将数据库驱动文件复制到对应的目录,我的是 /data/TeamCityData/lib/jdbc<br>
 然后回来 点击下<code>Refresh JDBC drivers</code> ，然后填写信息，我的已经建好对应的 数据库和用户名，所以如下：</p>
-<p><img src="http://7xkxil.com1.z0.glb.clouddn.com/2018-04-09-15232871143038.jpg" alt></p>
+<p><img src="http://qiniu.oss.cnlinjie.cn/2018-04-09-15232871143038.jpg" alt></p>
 <p>然后看到许可协议，点击接受。</p>
 <p><strong>接着创建初始的管理员账号：</strong></p>
-<p><img src="http://7xkxil.com1.z0.glb.clouddn.com/2018-04-09-5.%20%E5%88%9B%E5%BB%BA%E8%B4%A6%E6%88%B7.png" alt></p>
+<p><img src="http://qiniu.oss.cnlinjie.cn/2018-04-09-5.%20%E5%88%9B%E5%BB%BA%E8%B4%A6%E6%88%B7.png" alt></p>
 <p><strong>然后环境配置基本就完成了:</strong></p>
-<p><img src="http://7xkxil.com1.z0.glb.clouddn.com/2018-04-09-6.%20%E5%88%9B%E5%BB%BA%E5%AE%8C%E4%B9%8B%E5%90%8E.png" alt></p>
+<p><img src="http://qiniu.oss.cnlinjie.cn/2018-04-09-6.%20%E5%88%9B%E5%BB%BA%E5%AE%8C%E4%B9%8B%E5%90%8E.png" alt></p>
 <p>看到左上角的， Projects , Changes, Agents, Build Queue.</p>
 <p>Projects ： 项目管理区域</p>
 <p>Agents ： 代理，就是真正用来构建的，我们刚刚在执行 runAll start的时候，其实已经默认启用了一个代理。</p>
@@ -162,34 +162,34 @@ Teamcity 一些复杂的操作也还在摸索当中，一样还是要看文档�
 <ol>
 <li>创建新建</li>
 </ol>
-<p><img src="http://7xkxil.com1.z0.glb.clouddn.com/15233737476375.jpg" alt></p>
+<p><img src="http://qiniu.oss.cnlinjie.cn/15233737476375.jpg" alt></p>
 <h2 id="使用-git"><a class="markdownIt-Anchor" href="#使用-git"></a> 使用 git</h2>
 <p>根据不同的平台选择不同的方式，我私人项目用的比较多的是 开源中国的 gitee，所以填写如下</p>
-<p><img src="http://7xkxil.com1.z0.glb.clouddn.com/15233739995789.jpg" alt></p>
+<p><img src="http://qiniu.oss.cnlinjie.cn/15233739995789.jpg" alt></p>
 <p>之后会跳到让构建步骤</p>
-<p><img src="http://7xkxil.com1.z0.glb.clouddn.com/15233742450748.jpg" alt></p>
+<p><img src="http://qiniu.oss.cnlinjie.cn/15233742450748.jpg" alt></p>
 <p>这里会检测出你项目自带的哪些可以执行的脚本，然后选择，我这边就不选了，等会儿还可以自定义。</p>
 <p>点击左边的 <code>Build Steps</code> .</p>
 <h2 id="实现自动化"><a class="markdownIt-Anchor" href="#实现自动化"></a> 实现自动化</h2>
 <p>当项目被检出之后，会自动触发这一步，所以在这边编辑后构建脚本就可以实现自动化。</p>
-<p><img src="http://7xkxil.com1.z0.glb.clouddn.com/15233743614757.jpg" alt></p>
+<p><img src="http://qiniu.oss.cnlinjie.cn/15233743614757.jpg" alt></p>
 <ol>
 <li>自动添加构建脚本</li>
 <li>自动检测项目中自带的脚本，如上一步看到的。</li>
 </ol>
 <p>这里选择 Add Build Step</p>
-<p><img src="http://7xkxil.com1.z0.glb.clouddn.com/15233745920326.jpg" alt></p>
+<p><img src="http://qiniu.oss.cnlinjie.cn/15233745920326.jpg" alt></p>
 <p>这边有很多的选项，有Maven ，有命令行，有FTP（构建完成后可以将构建完成的软件包通过FTP上传等），我这边直接选择命令行。</p>
 <p>实现打包。</p>
-<p><img src="http://7xkxil.com1.z0.glb.clouddn.com/15233781356816.jpg" alt></p>
+<p><img src="http://qiniu.oss.cnlinjie.cn/15233781356816.jpg" alt></p>
 <p>这边步骤可以有很多，1，2，3，4 …</p>
-<p><img src="http://7xkxil.com1.z0.glb.clouddn.com/15233750453223.jpg" alt></p>
+<p><img src="http://qiniu.oss.cnlinjie.cn/15233750453223.jpg" alt></p>
 <p>配置完，回到项目，<br>
-<img src="http://7xkxil.com1.z0.glb.clouddn.com/15233751355056.jpg" alt></p>
+<img src="http://qiniu.oss.cnlinjie.cn/15233751355056.jpg" alt></p>
 <p>，然后点击 run</p>
-<p><img src="http://7xkxil.com1.z0.glb.clouddn.com/15233751704406.jpg" alt></p>
+<p><img src="http://qiniu.oss.cnlinjie.cn/15233751704406.jpg" alt></p>
 <p>我这边因为使用 mvn 命令，所以在服务器上也必须配置好 mvn 环境，否则</p>
-<p><img src="http://7xkxil.com1.z0.glb.clouddn.com/15233752477005.jpg" alt></p>
+<p><img src="http://qiniu.oss.cnlinjie.cn/15233752477005.jpg" alt></p>
 <h1 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h1>
 <p>Teamcity 主要检查各种源码管理 (git ,svn)  等，检出完成之后，再调用对应的构建步骤，具体如何构建全听命于你。</p>
 

@@ -97,7 +97,7 @@
 <h2 id="原因"><a class="markdownIt-Anchor" href="#原因"></a> <strong>原因</strong></h2>
 <p>经过一些资料和源码跟踪，终于找到了原因。<br>
 jave的能转换的原理其实就是<strong>调用外部的二进制可执行文件</strong> <code>ffmpeg</code>，打开它的jar包就可以发现，它里面内置了：<br>
-<img src="http://7xkxil.com1.z0.glb.clouddn.com/jave-ffmpegjave-old.png" alt="jave原jar包截图"><br>
+<img src="http://qiniu.oss.cnlinjie.cn/jave-ffmpegjave-old.png" alt="jave原jar包截图"><br>
 。<br>
 所以实际上，jave就是封装了一层对外部<code>ffmpeg</code>的调用。<br>
 而windows上能转换是因为：ffmpeg.exe 这个程序没问题。<br>
@@ -113,11 +113,11 @@ jave的能转换的原理其实就是<strong>调用外部的二进制可执行�
 <p>第二种比较简单，就直接用第二种吧。</p>
 <h2 id="下载和替换"><a class="markdownIt-Anchor" href="#下载和替换"></a> <strong>下载和替换</strong></h2>
 <p>下载站点：<a href="http://ffmpeg.org/download.html" target="_blank" rel="noopener">http://ffmpeg.org/download.html</a></p>
-<p><img src="http://7xkxil.com1.z0.glb.clouddn.com/jave-ffmpegdownload.png" alt="下载"></p>
+<p><img src="http://qiniu.oss.cnlinjie.cn/jave-ffmpegdownload.png" alt="下载"></p>
 <p><strong>然后选择一个32位还是64位：</strong></p>
-<p><img src="http://7xkxil.com1.z0.glb.clouddn.com/jave-ffmpegdownload2.png" alt="下载"></p>
+<p><img src="http://qiniu.oss.cnlinjie.cn/jave-ffmpegdownload2.png" alt="下载"></p>
 <p><strong>下载之后解压,选择其中的ffmpeg，替换掉。</strong></p>
-<p><img src="http://7xkxil.com1.z0.glb.clouddn.com/jave-ffmpegjave-new.png" alt="ffmpeg替换之后"></p>
+<p><img src="http://qiniu.oss.cnlinjie.cn/jave-ffmpegjave-new.png" alt="ffmpeg替换之后"></p>
 <h2 id="其他失败看这里"><a class="markdownIt-Anchor" href="#其他失败看这里"></a> <strong>其他!失败看这里!</strong></h2>
 <p>如果没成功，或者转换失败，<strong>看这里</strong>。<br>
 在操作的时候，<strong>为了验证服务器支持这种方式，你可以将下载回来的ffmpeg拷贝到你的服务器上，手动进行转换一次</strong>，如果失败，可以留言哦。<br>
@@ -126,7 +126,7 @@ jave的能转换的原理其实就是<strong>调用外部的二进制可执行�
 <li>解压文件（可以自己下载，也可以下载博主在最后提供的现成的jar包，直接解压jar也，打开<code>.it/sauronsoftware/jave</code> 目录，也可以看到这个ffmpeg ）</li>
 <li>进入目录，看到ffmpeg文件后，将其拷贝到Linux环境下。</li>
 <li>准备一个amr文件，将两个文件都拷贝到同一个目录下，进行测试。如果准备好了，如图：<br>
-<img src="http://7xkxil.com1.z0.glb.clouddn.com/jave-ffmpegll.png" alt="arm和ffmpeg"></li>
+<img src="http://qiniu.oss.cnlinjie.cn/jave-ffmpegll.png" alt="arm和ffmpeg"></li>
 <li>接着先给ffmpeg加个执行权限</li>
 </ol>
 <figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +<span class="symbol">x</span> ffmpeg</span><br></pre></td></tr></table></figure>
@@ -136,10 +136,10 @@ jave的能转换的原理其实就是<strong>调用外部的二进制可执行�
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./ffmpeg  -i <span class="keyword">test</span>.amr  <span class="keyword">test</span>.mp3</span><br></pre></td></tr></table></figure>
 <p>然后你会看到一堆的日志，并且可能还有提示，<strong>“test.amr: Input/output error”</strong>,但不要担心，先不管，你查看下这个目录下是否多了一个test.mp3 文件。如果有了，恭喜你，转换成功了，尝试播放下MP3</p>
 <p>你可能得到的日志如下：<br>
-<img src="http://7xkxil.com1.z0.glb.clouddn.com/jave-ffmpegll_log.png" alt="日志和执行"></p>
+<img src="http://qiniu.oss.cnlinjie.cn/jave-ffmpegll_log.png" alt="日志和执行"></p>
 <h2 id="成品下载"><a class="markdownIt-Anchor" href="#成品下载"></a> <strong>成品下载</strong></h2>
 <p>这是博主制作好的jave.jar 包，亲们需要的直接下载：</p>
-<p>64位：<a href="http://7xkxil.com1.z0.glb.clouddn.com/jave-ffmpegjave-1.0.2.jar" target="_blank" rel="noopener">jave-1.0.2-x64.jar</a></p>
+<p>64位：<a href="http://qiniu.oss.cnlinjie.cn/jave-ffmpegjave-1.0.2.jar" target="_blank" rel="noopener">jave-1.0.2-x64.jar</a></p>
 <h2 id="其他问题"><a class="markdownIt-Anchor" href="#其他问题"></a> <strong>其他问题</strong></h2>
 <p>很多反馈在命令下可以用，但放到项目里面就不能了。<br>
 如果遇到这种情况，请先清除 <code>./tomcat/temp/jave-/</code> 里面的东西文件，因为tomcat会缓存一些库文件。<br>
